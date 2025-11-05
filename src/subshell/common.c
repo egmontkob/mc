@@ -270,8 +270,8 @@ write_all (int fd, const void *buf, size_t count)
 static void
 init_subshell_child (const char *pty_name)
 {
-    char *init_file = NULL;
     pid_t mc_sid;
+    const char *env;
 
     (void) pty_name;
     setsid ();  // Get a fresh terminal session
@@ -339,49 +339,57 @@ init_subshell_child (const char *pty_name)
 
     // Execute the subshell at last
 
+    char buf1[16], buf2[16];
+    sprintf (buf1, "%d", subshell_pipe[WRITE]);
+    sprintf (buf2, "%d", command_buffer_pipe[WRITE]);
+    setenv ("MC_PWD_PIPE", buf1, 1);
+    setenv ("MC_COMMAND_PIPE", buf2, 1);
+
     switch (mc_global.shell->type)
     {
     case SHELL_ASH_BUSYBOX:
+        env = getenv ("ENV");
+        if (env != NULL)
+            setenv ("MC_ENV_SAVE", env, 1);
+        setenv ("ENV", SYSCONFDIR "shell-init/ash", 1);
         execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
         break;
 
     case SHELL_BASH:
-        // Use ~/.bashrc
-        init_file = g_strdup (MC_BASHRC_DEFAULT_PROFILE_FILE);
-
         /* Make MC's special commands not show up in bash's history and also suppress
          * consecutive identical commands*/
         putenv ((char *) "HISTCONTROL=ignoreboth");
 
-        execl (mc_global.shell->path, mc_global.shell->path, "--rcfile", init_file, (char *) NULL);
+        execl (mc_global.shell->path, mc_global.shell->path, "--rcfile",
+               SYSCONFDIR "shell-init/bash", (char *) NULL);
         break;
 
     case SHELL_DASH:
+        env = getenv ("ENV");
+        if (env != NULL)
+            setenv ("MC_ENV_SAVE", env, 1);
+        setenv ("ENV", SYSCONFDIR "shell-init/dash", 1);
         execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
         break;
 
     case SHELL_FISH:
         execl (mc_global.shell->path, mc_global.shell->path, "--init-command",
-               "set --global __mc_kitty_keyboard 1", (char *) NULL);
+               ". " SYSCONFDIR "shell-init/fish", (char *) NULL);
         break;
 
     case SHELL_KSH:
-        // Make MC's special commands not show up in history
-        putenv ((char *) "HISTCONTROL=ignorespace");
-
+        env = getenv ("ENV");
+        if (env != NULL)
+            setenv ("MC_ENV_SAVE", env, 1);
+        setenv ("ENV", SYSCONFDIR "shell-init/ksh", 1);
         execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
         break;
 
     case SHELL_MKSH:
-        // Use ~/.mkshrc (default behavior of mksh)
-        init_file = g_strdup (MC_MKSHRC_DEFAULT_PROFILE_FILE);
-
-        /* Put init file to ENV variable used by mksh but only if it
-         * is not already set. */
-        g_setenv ("ENV", init_file, FALSE);
-
-        // Note mksh doesn't support HISTCONTROL.
-
+        env = getenv ("ENV");
+        if (env != NULL)
+            setenv ("MC_ENV_SAVE", env, 1);
+        setenv ("ENV", SYSCONFDIR "shell-init/mksh", 1);
         execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
         break;
 
@@ -400,6 +408,10 @@ init_subshell_child (const char *pty_name)
 
         /* Use -g to exclude cmds beginning with space from history
          * and -Z to use the line editor on non-interactive term */
+        const char *zdotdir = getenv ("ZDOTDIR");
+        if (zdotdir != NULL)
+            setenv ("MC_ZDOTDIR_SAVE", zdotdir, 1);
+        setenv ("ZDOTDIR", SYSCONFDIR "shell-init", 1);
         execl (mc_global.shell->path, mc_global.shell->path, "-Z", "-g", (char *) NULL);
         break;
 
@@ -409,7 +421,6 @@ init_subshell_child (const char *pty_name)
     }
 
     // If we get this far, everything failed miserably
-    g_free (init_file);
     my_exit (FORK_FAILURE);
 }
 
@@ -1090,109 +1101,6 @@ pty_open_slave (const char *pty_name)
 
 /* --------------------------------------------------------------------------------------------- */
 /**
- * Set up `precmd' or equivalent for reading the subshell's CWD.
- *
- * Attention! Never forget that these are *one-liners* even though the concatenated
- * substrings contain line breaks and indentation for better understanding of the
- * shell code. It is vital that each one-liner ends with a line feed character ("\n" ).
- *
- * Also note that some shells support not remembering commands beginning with a space in their
- * history (HISTCONTROL=ignorespace or equivalent). Let's have leading spaces consistently
- * throughout the data we feed, even for shells that don't support it, it cannot hurt.
- *
- * @return initialized pre-command string
- */
-static gchar *
-init_subshell_precmd (void)
-{
-    /*
-     * Fallback precmd emulation that should work with virtually any shell.
-     *
-     * Explanation of the indirect hop via $MC_PRECMD:
-     *
-     * Scenario: The user exports PS1 and then invokes a sub-subshell (e.g. "sh").
-     *
-     * This would lead to the sub-subshell stopping (=frozen mc):
-     *     PS1='$(pwd >&%d; kill -STOP $$)...'
-     *
-     * This would lead to an error message like "sh: mc_precmd: not found":
-     *     mc_precmd() { pwd >&%d; kill -STOP $$; }
-     *     PS1='$(mc_precmd)...'
-     *
-     * A hop via $MC_PRECMD works because in the sub-subshell MC_PRECMD is undefined (assuming the
-     * user did not export this one), thus evaluated to empty string - no damage done.
-     */
-    static const char *precmd_fallback = " mc_precmd() {"
-                                         "   pwd >&%d;"
-                                         "   kill -STOP $$;"
-                                         " };"
-                                         " MC_PRECMD=mc_precmd;"
-                                         " PS1='$($MC_PRECMD)'\"$PS1\"\n";
-
-    switch (mc_global.shell->type)
-    {
-    case SHELL_BASH:
-        return g_strdup_printf (
-            " mc_print_command_buffer () { printf '%%s:%%s\\n%%s\\000' \"$BASH_VERSINFO\" "
-            "\"$READLINE_POINT\" \"$READLINE_LINE\" >&%d; }\n"
-            " bind -x '\"\\e" SHELL_BUFFER_KEYBINDING "\":\"mc_print_command_buffer\"'\n"
-            " if test $BASH_VERSINFO -ge 5 && [[ ${PROMPT_COMMAND@a} == *a* ]] 2> "
-            "/dev/null; then\n"
-            "   PROMPT_COMMAND+=( 'pwd >&%d; kill -STOP $$' )\n"
-            " else\n"
-            "   PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND\n}'pwd >&%d; kill -STOP $$'\n"
-            " fi\n",
-            command_buffer_pipe[WRITE], subshell_pipe[WRITE], subshell_pipe[WRITE]);
-
-    case SHELL_ASH_BUSYBOX:
-        // BusyBox needs to be built with CONFIG_ASH_EXPAND_PRMT=y (this is the default)
-        return g_strdup_printf (precmd_fallback, subshell_pipe[WRITE]);
-
-    case SHELL_DASH:
-        return g_strdup_printf (precmd_fallback, subshell_pipe[WRITE]);
-
-    case SHELL_MKSH:
-        return g_strdup_printf (precmd_fallback, subshell_pipe[WRITE]);
-
-    case SHELL_KSH:
-        return g_strdup_printf (" PS1='$(pwd >&%d; kill -STOP $$)'\"$PS1\"\n",
-                                subshell_pipe[WRITE]);
-
-    case SHELL_ZSH:
-        return g_strdup_printf (
-            " mc_print_command_buffer () { printf '%%s\\n%%s\\000' \"$CURSOR\" \"$BUFFER\" "
-            ">&%d; }\n"
-            " zle -N mc_print_command_buffer\n"
-            " bindkey '^[" SHELL_BUFFER_KEYBINDING "' mc_print_command_buffer\n"
-            " _mc_precmd() { pwd>&%d; kill -STOP $$; }\n"
-            " precmd_functions+=(_mc_precmd)\n",
-            command_buffer_pipe[WRITE], subshell_pipe[WRITE]);
-
-    case SHELL_TCSH:
-        // "echo -n" is a workaround against a suspected tcsh bug, see ticket #4120
-        return g_strdup_printf (" set echo_style=both;"
-                                " alias precmd 'echo -n; echo $cwd:q >%s; kill -STOP $$'\n",
-                                tcsh_fifo);
-
-    case SHELL_FISH:
-        return g_strdup_printf (" bind \\e" SHELL_BUFFER_KEYBINDING
-                                " \"begin; commandline -C; commandline; printf '\\000'; end >&%d\";"
-                                " if not functions -q fish_prompt_mc;"
-                                " functions -e fish_right_prompt;"
-                                " functions -c fish_prompt fish_prompt_mc;"
-                                " end;"
-                                " function fish_prompt;"
-                                " echo \"$PWD\" >&%d; kill -STOP $fish_pid; fish_prompt_mc;"
-                                " end\n",
-                                command_buffer_pipe[WRITE], subshell_pipe[WRITE]);
-    default:
-        fprintf (stderr, "subshell: unknown shell type (%u), aborting!\r\n", mc_global.shell->type);
-        exit (EXIT_FAILURE);
-    }
-}
-
-/* --------------------------------------------------------------------------------------------- */
-/**
  * Carefully quote directory name to allow entering any directory safely,
  * no matter what weird characters it may contain in its name.
  * NOTE: Treat directory name an untrusted data, don't allow it to cause
@@ -1442,6 +1350,8 @@ do_subshell_chdir (const vfs_path_t *vpath, gboolean update_prompt)
 void
 init_subshell (void)
 {
+    gchar *precmd = NULL;
+
     // This must be remembered across calls to init_subshell()
     static char pty_name[BUF_SMALL];
 
@@ -1553,18 +1463,21 @@ init_subshell (void)
         init_subshell_child (pty_name);
     }
 
+    if (mc_global.shell->type == SHELL_TCSH)
     {
-        gchar *precmd;
+        // FIXME Explain...
 
-        precmd = init_subshell_precmd ();
+        // "echo -n" is a workaround against a suspected tcsh bug, see ticket #4120
+        precmd = g_strdup_printf (" set echo_style=both;"
+                                  " alias precmd 'echo -n; echo $cwd:q >%s; kill -STOP $$'\n",
+                                  tcsh_fifo);
         write_all (mc_global.tty.subshell_pty, precmd, strlen (precmd));
-        g_free (precmd);
     }
 
     // Wait until the subshell has started up and processed the command
     subshell_state = RUNNING_COMMAND;
     tty_enable_interrupt_key ();
-    if (!feed_subshell (QUIETLY, TRUE))
+    if (!feed_subshell (precmd != NULL ? QUIETLY : VISIBLY, TRUE))
         mc_global.tty.use_subshell = FALSE;
     tty_disable_interrupt_key ();
     if (!subshell_alive)
@@ -1576,6 +1489,8 @@ init_subshell (void)
      * buffer function to time out every time they try to close the subshell. */
     if (use_persistent_buffer && !read_command_line_buffer (TRUE))
         use_persistent_buffer = FALSE;
+
+    g_free (precmd);
 }
 
 /* --------------------------------------------------------------------------------------------- */

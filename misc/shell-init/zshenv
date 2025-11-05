@@ -1,0 +1,11 @@
+# By using a custom .zshrc (via $ZDOTDIR), we also have to use a custom .zshenv.
+# Just do what zsh would do without mc's intervention.
+if [ -n "$MC_ZDOTDIR_SAVE" ]; then
+    if [ -r "$MC_ZDOTDIR_SAVE/.zshenv" ]; then
+        . "$MC_ZDOTDIR_SAVE/.zshenv"
+    fi
+else
+    if [ -r ~/.zshenv ]; then
+        . ~/.zshenv
+    fi
+fi

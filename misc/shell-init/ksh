@@ -1,0 +1,28 @@
+# ksh
+
+# Source the user's .kshrc or $ENV file that ksh would source without mc's intervention.
+if [ -n "$MC_ENV_SAVE" ]; then
+    ENV="$MC_ENV_SAVE"
+    unset MC_ENV_SAVE
+
+    # In the shell, $ENV undergoes parameter expansion, command substitution and arithmetic
+    # expansion before resulting in a filename. We don't support this.
+    if [ -f "$ENV" ]; then
+        . "$ENV"
+    fi
+else
+    unset ENV MC_ENV_SAVE
+
+    if [ -f ~/.kshrc ]; then
+        . ~/.kshrc
+    fi
+fi
+
+# Handle command termination.
+mc_precmd ()
+{
+    pwd >&$MC_PWD_PIPE
+    kill -STOP $$
+}
+MC_PRECMD=mc_precmd
+PS1='$($MC_PRECMD)'"$PS1"

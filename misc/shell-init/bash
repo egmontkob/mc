@@ -1,0 +1,18 @@
+# Source the user's .bashrc that bash would source without mc's intervention.
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
+# Report the command line buffer on ESC _.
+mc_print_command_buffer ()
+{
+    printf '%s:%s\n%s\000' "$BASH_VERSINFO" "$READLINE_POINT" "$READLINE_LINE" >&$MC_COMMAND_PIPE
+}
+bind -x '"\e_":"mc_print_command_buffer"'
+
+# Handle command termination.
+if test $BASH_VERSINFO -ge 5 && [[ ${PROMPT_COMMAND@a} == *a* ]] 2> /dev/null; then
+    PROMPT_COMMAND+=( 'pwd >&$MC_PWD_PIPE; kill -STOP $$' )
+else
+    PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}'pwd >&$MC_PWD_PIPE; kill -STOP $$'
+fi

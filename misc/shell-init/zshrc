@@ -1,0 +1,30 @@
+# Source the user's .zshrc that zsh would source without mc's intervention.
+# Restore $ZDOTDIR or lack thereof.
+if [ -n "$MC_ZDOTDIR_SAVE" ]; then
+    ZDOTDIR="$MC_ZDOTDIR_SAVE"
+    unset MC_ZDOTDIR_SAVE
+    if [ -r "$ZDOTDIR/.zshrc" ]; then
+        . "$ZDOTDIR/.zshrc"
+    fi
+else
+    unset ZDOTDIR
+    if [ -r ~/.zshrc ]; then
+        . ~/.zshrc
+    fi
+fi
+
+# Report the command line buffer on ESC _.
+mc_print_command_buffer ()
+{
+    printf '%s\n%s\000' "$CURSOR" "$BUFFER" >&$MC_COMMAND_PIPE
+}
+zle -N mc_print_command_buffer
+bindkey '^[_' mc_print_command_buffer
+
+# Handle command termination
+_mc_precmd ()
+{
+    pwd >&$MC_PWD_PIPE
+    kill -STOP $$
+}
+precmd_functions+=(_mc_precmd)

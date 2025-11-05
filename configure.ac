@@ -577,6 +577,8 @@ misc/ext.d/text.sh
 misc/macros.d/Makefile
 misc/mc.ext.ini
 
+misc/shell-init/Makefile
+
 src/Makefile
 src/consaver/Makefile
 src/editor/Makefile

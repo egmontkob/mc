@@ -6,4 +6,6 @@ libsubshell_la_SOURCES = \
 	proxyfunc.c \
 	subshell.h
 
-AM_CPPFLAGS = -I$(top_srcdir) $(GLIB_CFLAGS)
+AM_CPPFLAGS = -DSYSCONFDIR=\""$(sysconfdir)/@PACKAGE@/"\" \
+	-I$(top_srcdir) \
+	$(GLIB_CFLAGS)
