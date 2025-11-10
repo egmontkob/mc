@@ -314,61 +314,6 @@ init_subshell_child (const char *pty_name)
         putenv (g_strdup (sid_str));
     }
 
-    switch (mc_global.shell->type)
-    {
-    case SHELL_BASH:
-        // Use ~/.bashrc
-        init_file = g_strdup (MC_BASHRC_DEFAULT_PROFILE_FILE);
-
-        /* Make MC's special commands not show up in bash's history and also suppress
-         * consecutive identical commands*/
-        putenv ((char *) "HISTCONTROL=ignoreboth");
-
-        break;
-
-    case SHELL_ASH_BUSYBOX:
-    case SHELL_DASH:
-        break;
-
-    case SHELL_KSH:
-        // Make MC's special commands not show up in history
-        putenv ((char *) "HISTCONTROL=ignorespace");
-
-        break;
-
-    case SHELL_MKSH:
-        // Use ~/.mkshrc (default behavior of mksh)
-        init_file = g_strdup (MC_MKSHRC_DEFAULT_PROFILE_FILE);
-
-        /* Put init file to ENV variable used by mksh but only if it
-         * is not already set. */
-        g_setenv ("ENV", init_file, FALSE);
-
-        // Note mksh doesn't support HISTCONTROL.
-
-        break;
-
-    case SHELL_ZSH:
-        /* ZDOTDIR environment variable is the only way to point zsh
-         * to an other rc file than the default. */
-
-        // Don't overwrite $ZDOTDIR
-        if (g_getenv ("ZDOTDIR") != NULL)
-            // Use ~/.zshrc
-            g_setenv ("ZDOTDIR", mc_config_get_data_path (), TRUE);
-
-        break;
-
-        // TODO: Find a way to pass initfile to TCSH and FISH
-    case SHELL_TCSH:
-    case SHELL_FISH:
-        break;
-
-    default:
-        fprintf (stderr, __FILE__ ": unimplemented subshell type %u\r\n", mc_global.shell->type);
-        my_exit (FORK_FAILURE);
-    }
-
     // Attach all our standard file descriptors to the pty
 
     // This is done just before the exec, because stderr must still
@@ -396,14 +341,23 @@ init_subshell_child (const char *pty_name)
 
     switch (mc_global.shell->type)
     {
+    case SHELL_ASH_BUSYBOX:
+        execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
+        break;
+
     case SHELL_BASH:
+        // Use ~/.bashrc
+        init_file = g_strdup (MC_BASHRC_DEFAULT_PROFILE_FILE);
+
+        /* Make MC's special commands not show up in bash's history and also suppress
+         * consecutive identical commands*/
+        putenv ((char *) "HISTCONTROL=ignoreboth");
+
         execl (mc_global.shell->path, mc_global.shell->path, "--rcfile", init_file, (char *) NULL);
         break;
 
-    case SHELL_ZSH:
-        /* Use -g to exclude cmds beginning with space from history
-         * and -Z to use the line editor on non-interactive term */
-        execl (mc_global.shell->path, mc_global.shell->path, "-Z", "-g", (char *) NULL);
+    case SHELL_DASH:
+        execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
         break;
 
     case SHELL_FISH:
@@ -411,16 +365,47 @@ init_subshell_child (const char *pty_name)
                "set --global __mc_kitty_keyboard 1", (char *) NULL);
         break;
 
-    case SHELL_ASH_BUSYBOX:
-    case SHELL_DASH:
-    case SHELL_TCSH:
     case SHELL_KSH:
-    case SHELL_MKSH:
+        // Make MC's special commands not show up in history
+        putenv ((char *) "HISTCONTROL=ignorespace");
+
         execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
         break;
 
-    default:
+    case SHELL_MKSH:
+        // Use ~/.mkshrc (default behavior of mksh)
+        init_file = g_strdup (MC_MKSHRC_DEFAULT_PROFILE_FILE);
+
+        /* Put init file to ENV variable used by mksh but only if it
+         * is not already set. */
+        g_setenv ("ENV", init_file, FALSE);
+
+        // Note mksh doesn't support HISTCONTROL.
+
+        execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
         break;
+
+    case SHELL_TCSH:
+        execl (mc_global.shell->path, mc_global.shell->path, (char *) NULL);
+        break;
+
+    case SHELL_ZSH:
+        /* ZDOTDIR environment variable is the only way to point zsh
+         * to an other rc file than the default. */
+
+        // Don't overwrite $ZDOTDIR
+        if (g_getenv ("ZDOTDIR") != NULL)
+            // Use ~/.zshrc
+            g_setenv ("ZDOTDIR", mc_config_get_data_path (), TRUE);
+
+        /* Use -g to exclude cmds beginning with space from history
+         * and -Z to use the line editor on non-interactive term */
+        execl (mc_global.shell->path, mc_global.shell->path, "-Z", "-g", (char *) NULL);
+        break;
+
+    default:
+        fprintf (stderr, __FILE__ ": unimplemented subshell type %u\r\n", mc_global.shell->type);
+        my_exit (FORK_FAILURE);
     }
 
     // If we get this far, everything failed miserably
