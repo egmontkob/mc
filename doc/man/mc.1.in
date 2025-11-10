@@ -2440,14 +2440,6 @@ time with the sequence C\-o and jump back to Midnight Commander, if
 you interrupt an application, you will not be able to run other
 external commands until you quit the application you interrupted.
 .PP
-The basic prompt displayed by Midnight Commander is of the form
-"user@host:current_path$ ". When using a capable shell, like Bash, the
-prompt displayed by Midnight Commander will be the same prompt that you
-are currently using in your shell.
-.PP
-(There's a known problem when using fish: the prompt is displayed only in
-full screen mode (Ctrl\-o), not when the panels are visible.)
-.PP
 The
 .\"LINK2"
 OPTIONS
