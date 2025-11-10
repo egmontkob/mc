@@ -50,17 +50,9 @@
 
 #define MC_EXTFS_DIR                    "extfs.d"
 
-#define MC_ASHRC_CUSTOM_PROFILE_FILE    "ashrc"
-#define MC_BASHRC_CUSTOM_PROFILE_FILE   "bashrc"
-#define MC_KSHRC_CUSTOM_PROFILE_FILE    "kshrc"
-#define MC_MKSHRC_CUSTOM_PROFILE_FILE   "mkshrc"
-#define MC_ZSHRC_CUSTOM_PROFILE_FILE    ".zshrc"  // zsh only accepts whole directory (#4203)
-
 #define MC_BASHRC_DEFAULT_PROFILE_FILE  ".bashrc"
 #define MC_MKSHRC_DEFAULT_PROFILE_FILE  ".mkshrc"
 #define MC_GENERIC_DEFAULT_PROFILE_FILE ".profile"
-
-#define MC_INPUTRC_FILE                 "inputrc"
 
 #define MC_CONFIG_FILE                  "ini"
 #define MC_EXT_FILE                     "mc.ext.ini"

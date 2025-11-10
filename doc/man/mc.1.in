@@ -2406,31 +2406,30 @@ subshell as if you had typed it.  This also allows you to change the
 environment variables, use shell functions and define aliases that are
 valid until you quit Midnight Commander.
 .PP
-.B bash
-users may specify startup commands in ~/.local/share/mc/bashrc (fallback ~/.bashrc)
-and special keyboard maps in ~/.local/share/mc/inputrc (fallback ~/.inputrc).
-.PP
-.B ash/dash
-users (BusyBox or Debian) may specify startup commands in ~/.local/share/mc/ashrc (fallback ~/.profile).
-.PP
-.B ksh/oksh
-users (PD ksh variants) may specify startup commands in ~/.local/share/mc/kshrc
-(fallback
+If desired, it is possible to make the shell behave differently if it's
+being run as Midnight Commander's subshell. To do this, branch on the
+existance of the
+.I MC_SID
+environment variable in the shell startup file (by default
+.BR bash :
+~/.bashrc - where it's also possible to set
+.I INPUTRC
+to point to a file other than ~/.inputrc -,
+.BR zsh :
+~/.zshrc and ~/.zshenv,
+.BR fish :
+~/.config/fish/config.fish,
+.BR tcsh :
+~/.tcshrc,
+.BR ksh :
 .I ENV
-or ~/.profile).
-.PP
-.B mksh
-users (MirBSD ksh) may specify startup commands in ~/.local/share/mc/mkshrc
-(fallback
+or ~/.kshrc,
+.BR mksh :
 .I ENV
-or ~/.mkshrc).
-.PP
-.B zsh
-users may specify startup commands in ~/.local/share/mc/.zshrc (fallback ~/.zshrc).
-.PP
-.B tcsh, fish
-users cannot specify mc\-specific startup commands at present. They have to rely on
-shell\-specific startup files.
+or ~/.mkshrc,
+.BR ash ,
+.BR dash :
+.IR $ENV ).
 .PP
 The following paragraphs are relevant only when the subshell support is
 active:
