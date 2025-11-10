@@ -328,23 +328,9 @@ init_subshell_child (const char *pty_name)
 
     case SHELL_ASH_BUSYBOX:
     case SHELL_DASH:
-        // Use ~/.profile
-        init_file = g_strdup (MC_GENERIC_DEFAULT_PROFILE_FILE);
-
-        /* Put init file to ENV variable used by ash but only if it
-           is not already set. */
-        g_setenv ("ENV", init_file, FALSE);
-
         break;
 
     case SHELL_KSH:
-        // Use ~/.profile
-        init_file = g_strdup (MC_GENERIC_DEFAULT_PROFILE_FILE);
-
-        /* Put init file to ENV variable used by ksh but only if it
-         * is not already set. */
-        g_setenv ("ENV", init_file, FALSE);
-
         // Make MC's special commands not show up in history
         putenv ((char *) "HISTCONTROL=ignorespace");
 
