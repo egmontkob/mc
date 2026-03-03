@@ -3789,8 +3789,9 @@ Midnight Commander's library directory) and in the
 "terminal:your\-terminal\-name" and then for the section
 "terminal:general", each line of the section contains a key symbol that
 you want to define, followed by an equal sign and the definition for the
-key.  You can use the special \ee form to represent the escape character
-and the ^x to represent the control\-x character.
+key.  You can use the special \ee form to represent the escape character,
+^X to represent the control\-x character. Multiple possible escape
+sequences for the given key can be separated by a space.
 .PP
 The possible key symbols are:
 .PP
@@ -3810,11 +3811,11 @@ delete        the delete character
 complete      to do completion
 .fi
 .PP
-For example, to define the key insert to be the Escape + [ + O + p, you
+For example, to define the key insert to be the Escape + O + p, you
 set this in the ini file:
 .PP
 .nf
-insert=\ee[Op
+insert=\eeOp
 .fi
 
 .PP
@@ -3823,13 +3824,13 @@ Also now you can use
 For example:
 
 .nf
-    ctrl\-alt\-right=\ee[[1;6C
-    ctrl\-alt\-left=\ee[[1;6D
+    ctrl\-alt\-right=\ee[1;7C
+    ctrl\-alt\-left=\ee[1;7D
 .fi
 
 .PP
-This means that ctrl+alt+left sends a \ee[[1;6D escape sequence
-and therefore Midnight Commander interprets "\ee[[1;6D" as C\-Alt\-Left.
+This means that ctrl+alt+left sends a \ee[1;7D escape sequence
+and therefore Midnight Commander interprets "\ee[1;7D" as Ctrl\-Alt\-Left.
 
 .PP
 The
