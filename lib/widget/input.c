@@ -1036,12 +1036,12 @@ input_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *dat
         }
 
         // Keys we want others to handle
-        if (parm == KEY_UP || parm == KEY_DOWN || parm == ESC_CHAR || parm == KEY_F (10)
+        if (parm == MCKEY_UP || parm == MCKEY_DOWN || parm == ESC_CHAR || parm == MCKEY_F (10)
             || parm == '\n')
             return MSG_NOT_HANDLED;
 
         // When pasting multiline text, insert literal Enter
-        if ((parm & ~KEY_M_MASK) == '\n')
+        if ((parm & ~MCKEY_M_MASK) == '\n')
         {
             quote = TRUE;
             v = input_handle_char (in, '\n');

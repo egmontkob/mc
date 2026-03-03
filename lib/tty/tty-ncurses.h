@@ -33,6 +33,27 @@
 
 /*** typedefs(not structures) and defined constants **********************************************/
 
+#define MCKEY_F(n)      KEY_F (n)
+#define MCKEY_BACKSPACE KEY_BACKSPACE
+#define MCKEY_UP        KEY_UP
+#define MCKEY_DOWN      KEY_DOWN
+#define MCKEY_LEFT      KEY_LEFT
+#define MCKEY_RIGHT     KEY_RIGHT
+#define MCKEY_INS       KEY_IC
+#define MCKEY_DEL       KEY_DC
+#define MCKEY_HOME      KEY_HOME
+#define MCKEY_END       KEY_END
+#define MCKEY_PGUP      KEY_PPAGE
+#define MCKEY_PGDN      KEY_NPAGE
+
+// wtf are these?
+#define MCKEY_A1 KEY_A1
+#define MCKEY_C1 KEY_C1
+
+#ifdef KEY_RESIZE
+#define MCKEY_RESIZE KEY_RESIZE
+#endif
+
 /*** enums ***************************************************************************************/
 
 /*** structures declarations (and typedefs of structures)*****************************************/

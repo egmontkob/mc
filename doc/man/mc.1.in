@@ -3797,19 +3797,20 @@ sequences for the given key.
 The possible key symbols are:
 .PP
 .nf
-f0 to f20     Function keys f0\-f20
-bs            backspace
-home          home key
-end           end key
-up            up arrow key
-down          down arrow key
-left          left arrow key
-right         right arrow key
-pgdn          page down key
-pgup          page up key
-insert        the insert character
-delete        the delete character
-complete      to do completion
+f1 to f12             function keys F1\-F12
+shift\-f1 to shift\-12  shift + function keys F1\-F12
+bs                    backspace
+home                  home key
+end                   end key
+up                    up arrow key
+down                  down arrow key
+left                  left arrow key
+right                 right arrow key
+pgdn                  page down key
+pgup                  page up key
+insert                insert key
+delete                delete key
+meta\-tab              meta (alt) + Tab  FIXME isn't it alt-tab, as per ctrl-alt-left below???
 .fi
 .PP
 For example, to define the key insert to be the Escape + [ + O + p, you

@@ -654,7 +654,7 @@ tree_do_search (WTree *tree, int key)
 {
     // TODO: support multi-byte characters, see do_search() in panel.c
 
-    if (tree->search_buffer->len != 0 && key == KEY_BACKSPACE)
+    if (tree->search_buffer->len != 0 && key == MCKEY_BACKSPACE)
         g_string_set_size (tree->search_buffer, tree->search_buffer->len - 1);
     else if (key != 0)
         g_string_append_c (tree->search_buffer, (gchar) key);
@@ -1070,7 +1070,7 @@ tree_key (WTree *tree, int key)
         return MSG_NOT_HANDLED;
     }
 
-    if (tree->searching && ((key >= ' ' && key <= 255) || key == KEY_BACKSPACE))
+    if (tree->searching && ((key >= ' ' && key <= 255) || key == MCKEY_BACKSPACE))
     {
         tree_do_search (tree, key);
         show_tree (tree);
@@ -1092,7 +1092,7 @@ tree_key (WTree *tree, int key)
     }
 
     // Do not eat characters not meant for the tree below ' ' (e.g. C-l).
-    if (!command_prompt && ((key >= ' ' && key <= 255) || key == KEY_BACKSPACE))
+    if (!command_prompt && ((key >= ' ' && key <= 255) || key == MCKEY_BACKSPACE))
     {
         tree_start_search (tree);
         tree_do_search (tree, key);

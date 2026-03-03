@@ -171,7 +171,7 @@ buttonbar_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void 
     {
     case MSG_HOTKEY:
         for (i = 0; i < BUTTONBAR_LABELS_NUM; i++)
-            if (parm == KEY_F (i + 1) && buttonbar_call (bb, i))
+            if (parm == MCKEY_F (i + 1) && buttonbar_call (bb, i))
                 return MSG_HANDLED;
         return MSG_NOT_HANDLED;
 
@@ -268,7 +268,7 @@ buttonbar_set_label (WButtonBar *bb, int idx, const char *text, const global_key
         long command = CK_IgnoreKey;
 
         if (keymap != NULL)
-            command = keybind_lookup_keymap_command (keymap, KEY_F (idx));
+            command = keybind_lookup_keymap_command (keymap, MCKEY_F (idx));
 
         if ((text == NULL) || (text[0] == '\0'))
             set_label_text (bb, idx, "");

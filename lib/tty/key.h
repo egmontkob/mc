@@ -18,13 +18,13 @@
  * Internal representation of the key modifiers.  It is used in the
  * sequence tables and the keycodes in the mc sources.
  */
-#define KEY_M_SHIFT 0x1000
-#define KEY_M_ALT   0x2000
-#define KEY_M_CTRL  0x4000
-#define KEY_M_MASK  0x7000
+#define MCKEY_M_SHIFT 0x1000
+#define MCKEY_M_ALT   0x2000
+#define MCKEY_M_CTRL  0x4000
+#define MCKEY_M_MASK  0x7000
 
-#define XCTRL(x)    (KEY_M_CTRL | ((x) & 0x1F))
-#define ALT(x)      (KEY_M_ALT | (unsigned int) (x))
+#define XCTRL(x) (MCKEY_M_CTRL | ((x) & 0x1F))
+#define ALT(x)   (MCKEY_M_ALT | (unsigned int) (x))
 
 /* To define sequences and return codes */
 #define MCKEY_NOACTION 0
@@ -39,6 +39,12 @@
 /* Return code for brackets of bracketed paste mode */
 #define MCKEY_BRACKETED_PASTING_START -4
 #define MCKEY_BRACKETED_PASTING_END   -5
+
+#define MCKEY_KP_DIVIDE   4001  // unused
+#define MCKEY_KP_MULTIPLY 4002
+#define MCKEY_KP_SUBTRACT 4003
+#define MCKEY_KP_ADD      4004
+#define MCKEY_KP_ENTER    4005  // unused
 
 /*** enums ***************************************************************************************/
 
@@ -114,7 +120,7 @@ void disable_bracketed_paste (void);
 static inline gboolean
 is_abort_char (int c)
 {
-    return ((c == (int) ESC_CHAR) || (c == (int) KEY_F (10)));
+    return ((c == (int) ESC_CHAR) || (c == (int) MCKEY_F (10)));
 }
 
 #endif

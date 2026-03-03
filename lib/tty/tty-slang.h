@@ -6,7 +6,21 @@
 
 /*** typedefs(not structures) and defined constants **********************************************/
 
-#define KEY_F(x)       (1000 + x)
+#define MCKEY_F(x)      SL_KEY_F (x)  // for representing F1-F10
+#define MCKEY_BACKSPACE SL_KEY_BACKSPACE
+#define MCKEY_UP        SL_KEY_UP
+#define MCKEY_DOWN      SL_KEY_DOWN
+#define MCKEY_LEFT      SL_KEY_LEFT
+#define MCKEY_RIGHT     SL_KEY_RIGHT
+#define MCKEY_INS       SL_KEY_IC
+#define MCKEY_DEL       SL_KEY_DELETE
+#define MCKEY_HOME      SL_KEY_HOME
+#define MCKEY_END       SL_KEY_END
+#define MCKEY_PGUP      SL_KEY_PPAGE
+#define MCKEY_PGDN      SL_KEY_NPAGE
+#define MCKEY_ENTER     SL_KEY_ENTER  // ?
+#define MCKEY_A1        SL_KEY_A1  // ???
+#define MCKEY_C1        SL_KEY_C1  // ???
 
 #define COLS           SLtt_Screen_Cols
 #define LINES          SLtt_Screen_Rows
@@ -14,26 +28,6 @@
 #define ENABLE_SHADOWS 1
 
 /*** enums ***************************************************************************************/
-
-enum
-{
-    KEY_BACKSPACE = 400,
-    KEY_END,
-    KEY_UP,
-    KEY_DOWN,
-    KEY_LEFT,
-    KEY_RIGHT,
-    KEY_HOME,
-    KEY_A1,
-    KEY_C1,
-    KEY_NPAGE,
-    KEY_PPAGE,
-    KEY_IC,
-    KEY_ENTER,
-    KEY_DC,
-    KEY_SCANCEL,
-    KEY_BTAB
-};
 
 /*** structures declarations (and typedefs of structures)*****************************************/
 
