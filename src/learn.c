@@ -209,10 +209,10 @@ learn_check_key (int c)
 
     switch (c)
     {
-    case KEY_LEFT:
+    case MCKEY_LEFT:
     case 'h':
         return learn_move (FALSE);
-    case KEY_RIGHT:
+    case MCKEY_RIGHT:
     case 'l':
         return learn_move (TRUE);
     case 'j':

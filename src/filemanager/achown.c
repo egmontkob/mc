@@ -354,13 +354,13 @@ perm_button_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, voi
             flag_pos = f_pos * 3 + b->hotpos;
             ch_flags[flag_pos] = parm;
             update_mode (g);
-            send_message (w, NULL, MSG_KEY, KEY_RIGHT, NULL);
+            send_message (w, NULL, MSG_KEY, MCKEY_RIGHT, NULL);
             if (b->hotpos == 2)
                 group_select_next_widget (g);
             break;
 
         case XCTRL ('f'):
-        case KEY_RIGHT:
+        case MCKEY_RIGHT:
         {
             cb_ret_t ret;
 
@@ -370,7 +370,7 @@ perm_button_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, voi
         }
 
         case XCTRL ('b'):
-        case KEY_LEFT:
+        case MCKEY_LEFT:
         {
             cb_ret_t ret;
 
@@ -478,8 +478,8 @@ chl_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *data)
     case MSG_KEY:
         switch (parm)
         {
-        case KEY_LEFT:
-        case KEY_RIGHT:
+        case MCKEY_LEFT:
+        case MCKEY_RIGHT:
         {
             WDialog *h = DIALOG (w);
 
@@ -617,14 +617,14 @@ user_group_button_cb (WButton *button, int action)
                 }
             }
 
-            if (result == KEY_LEFT)
+            if (result == MCKEY_LEFT)
             {
                 if (!is_owner)
                     chl_end = TRUE;
                 group_select_prev_widget (g);
                 f_pos--;
             }
-            else if (result == KEY_RIGHT)
+            else if (result == MCKEY_RIGHT)
             {
                 if (is_owner)
                     chl_end = TRUE;

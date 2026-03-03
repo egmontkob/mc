@@ -994,14 +994,14 @@ complete_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *
     case MSG_KEY:
         switch (parm)
         {
-        case KEY_LEFT:
-        case KEY_RIGHT:
+        case MCKEY_LEFT:
+        case MCKEY_RIGHT:
             bl = 0;
             h->ret_value = 0;
             dlg_close (h);
             return MSG_HANDLED;
 
-        case KEY_BACKSPACE:
+        case MCKEY_BACKSPACE:
             bl = 0;
             // exit from completion list if input line is empty
             if (end == 0)

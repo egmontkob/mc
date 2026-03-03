@@ -2711,7 +2711,7 @@ do_search (WPanel *panel, int c_code)
     char *reg_exp, *esc_str;
     gboolean is_found = FALSE;
 
-    if (c_code == KEY_BACKSPACE)
+    if (c_code == MCKEY_BACKSPACE)
     {
         if (panel->quick_search.buffer->len != 0)
         {
@@ -2791,7 +2791,7 @@ do_search (WPanel *panel, int c_code)
         select_item (panel);
         widget_draw (WIDGET (panel));
     }
-    else if (c_code != KEY_BACKSPACE)
+    else if (c_code != MCKEY_BACKSPACE)
     {
         act = panel->quick_search.buffer->str + panel->quick_search.buffer->len;
         str_prev_noncomb_char (&act, panel->quick_search.buffer->str);
@@ -3732,7 +3732,7 @@ panel_key (WPanel *panel, int key)
         return MSG_HANDLED;
     }
 
-    if (panel->quick_search.active && ((key >= ' ' && key <= 255) || key == KEY_BACKSPACE))
+    if (panel->quick_search.active && ((key >= ' ' && key <= 255) || key == MCKEY_BACKSPACE))
     {
         do_search (panel, key);
         return MSG_HANDLED;
@@ -3742,7 +3742,7 @@ panel_key (WPanel *panel, int key)
     if (command != CK_IgnoreKey)
         return panel_execute_cmd (panel, command);
 
-    if (!command_prompt && ((key >= ' ' && key <= 255) || key == KEY_BACKSPACE))
+    if (!command_prompt && ((key >= ' ' && key <= 255) || key == MCKEY_BACKSPACE))
     {
         start_search (panel);
         do_search (panel, key);

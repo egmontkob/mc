@@ -103,70 +103,68 @@ gboolean bracketed_pasting_in_progress = FALSE;
  */
 const key_code_name_t key_name_conv_tab[] = {
     { ESC_CHAR, "escape", N_ ("Escape"), "Esc" },
-    /* KEY_F(0) is not here, since we are mapping it to f10, so there is no reason
-       to define f0 as well. Also, it makes Learn keys a bunch of problems :( */
-    { KEY_F (1), "f1", N_ ("Function key 1"), "F1" },
-    { KEY_F (2), "f2", N_ ("Function key 2"), "F2" },
-    { KEY_F (3), "f3", N_ ("Function key 3"), "F3" },
-    { KEY_F (4), "f4", N_ ("Function key 4"), "F4" },
-    { KEY_F (5), "f5", N_ ("Function key 5"), "F5" },
-    { KEY_F (6), "f6", N_ ("Function key 6"), "F6" },
-    { KEY_F (7), "f7", N_ ("Function key 7"), "F7" },
-    { KEY_F (8), "f8", N_ ("Function key 8"), "F8" },
-    { KEY_F (9), "f9", N_ ("Function key 9"), "F9" },
-    { KEY_F (10), "f10", N_ ("Function key 10"), "F10" },
-    { KEY_F (11), "f11", N_ ("Function key 11"), "F11" },
-    { KEY_F (12), "f12", N_ ("Function key 12"), "F12" },
-    { KEY_F (13), "f13", N_ ("Function key 13"), "F13" },
-    { KEY_F (14), "f14", N_ ("Function key 14"), "F14" },
-    { KEY_F (15), "f15", N_ ("Function key 15"), "F15" },
-    { KEY_F (16), "f16", N_ ("Function key 16"), "F16" },
-    { KEY_F (17), "f17", N_ ("Function key 17"), "F17" },
-    { KEY_F (18), "f18", N_ ("Function key 18"), "F18" },
-    { KEY_F (19), "f19", N_ ("Function key 19"), "F19" },
-    { KEY_F (20), "f20", N_ ("Function key 20"), "F20" },
-    { ALT ('\t'), "complete", N_ ("Completion/M-tab"), "Meta-Tab" },
-    { KEY_BTAB, "backtab", N_ ("BackTab/S-tab"), "Shift-Tab" },
-    { KEY_BACKSPACE, "backspace", N_ ("Backspace"), "Backspace" },
-    { KEY_UP, "up", N_ ("Up arrow"), "Up" },
-    { KEY_DOWN, "down", N_ ("Down arrow"), "Down" },
-    { KEY_LEFT, "left", N_ ("Left arrow"), "Left" },
-    { KEY_RIGHT, "right", N_ ("Right arrow"), "Right" },
-    { KEY_IC, "insert", N_ ("Insert"), "Ins" },
-    { KEY_DC, "delete", N_ ("Delete"), "Del" },
-    { KEY_HOME, "home", N_ ("Home"), "Home" },
-    { KEY_END, "end", N_ ("End key"), "End" },
-    { KEY_PPAGE, "pgup", N_ ("Page Up"), "PgUp" },
-    { KEY_NPAGE, "pgdn", N_ ("Page Down"), "PgDn" },
+    { MCKEY_F (1), "f1", N_ ("F1"), "F1" },
+    { MCKEY_F (2), "f2", N_ ("F2"), "F2" },
+    { MCKEY_F (3), "f3", N_ ("F3"), "F3" },
+    { MCKEY_F (4), "f4", N_ ("F4"), "F4" },
+    { MCKEY_F (5), "f5", N_ ("F5"), "F5" },
+    { MCKEY_F (6), "f6", N_ ("F6"), "F6" },
+    { MCKEY_F (7), "f7", N_ ("F7"), "F7" },
+    { MCKEY_F (8), "f8", N_ ("F8"), "F8" },
+    { MCKEY_F (9), "f9", N_ ("F9"), "F9" },
+    { MCKEY_F (10), "f10", N_ ("F10"), "F10" },
+    { MCKEY_M_SHIFT | MCKEY_F (1), "shift-f1", N_ ("Shift-F1"), "Shift-F1" },
+    { MCKEY_M_SHIFT | MCKEY_F (2), "shift-f2", N_ ("Shift-F2"), "Shift-F2" },
+    { MCKEY_M_SHIFT | MCKEY_F (3), "shift-f3", N_ ("Shift-F3"), "Shift-F3" },
+    { MCKEY_M_SHIFT | MCKEY_F (4), "shift-f4", N_ ("Shift-F4"), "Shift-F4" },
+    { MCKEY_M_SHIFT | MCKEY_F (5), "shift-f5", N_ ("Shift-F5"), "Shift-F5" },
+    { MCKEY_M_SHIFT | MCKEY_F (6), "shift-f6", N_ ("Shift-F6"), "Shift-F6" },
+    { MCKEY_M_SHIFT | MCKEY_F (7), "shift-f7", N_ ("Shift-F7"), "Shift-F7" },
+    { MCKEY_M_SHIFT | MCKEY_F (8), "shift-f8", N_ ("Shift-F8"), "Shift-F8" },
+    { MCKEY_M_SHIFT | MCKEY_F (9), "shift-f9", N_ ("Shift-F9"), "Shift-F9" },
+    { MCKEY_M_SHIFT | MCKEY_F (10), "shift-f10", N_ ("Shift-F10"), "Shift-F10" },
+    { ALT ('\t'), "meta-tab", N_ ("Meta-Tab"), "Meta-Tab" },
+    { MCKEY_M_SHIFT | '\t', "shift-tab", N_ ("Shift-Tab"), "Shift-Tab" },
+    { MCKEY_BACKSPACE, "backspace", N_ ("Backspace"), "Backspace" },
+    { MCKEY_UP, "up", N_ ("Up arrow"), "Up" },
+    { MCKEY_DOWN, "down", N_ ("Down arrow"), "Down" },
+    { MCKEY_LEFT, "left", N_ ("Left arrow"), "Left" },
+    { MCKEY_RIGHT, "right", N_ ("Right arrow"), "Right" },
+    { MCKEY_INS, "insert", N_ ("Insert"), "Ins" },
+    { MCKEY_DEL, "delete", N_ ("Delete"), "Del" },
+    { MCKEY_HOME, "home", N_ ("Home"), "Home" },
+    { MCKEY_END, "end", N_ ("End"), "End" },
+    { MCKEY_PGUP, "pgup", N_ ("Page Up"), "PgUp" },
+    { MCKEY_PGDN, "pgdn", N_ ("Page Down"), "PgDn" },
     { (int) '/', "kpslash", N_ ("/ on keypad"), "/" },
-    { KEY_KP_MULTIPLY, "kpasterisk", N_ ("* on keypad"), "*" },
-    { KEY_KP_SUBTRACT, "kpminus", N_ ("- on keypad"), "-" },
-    { KEY_KP_ADD, "kpplus", N_ ("+ on keypad"), "+" },
+    { MCKEY_KP_MULTIPLY, "kpasterisk", N_ ("* on keypad"), "*" },
+    { MCKEY_KP_SUBTRACT, "kpminus", N_ ("- on keypad"), "-" },
+    { MCKEY_KP_ADD, "kpplus", N_ ("+ on keypad"), "+" },
 
     // From here on, these won't be shown in Learn keys (no space)
-    { KEY_LEFT, "kpleft", N_ ("Left arrow keypad"), "Left" },
-    { KEY_RIGHT, "kpright", N_ ("Right arrow keypad"), "Right" },
-    { KEY_UP, "kpup", N_ ("Up arrow keypad"), "Up" },
-    { KEY_DOWN, "kpdown", N_ ("Down arrow keypad"), "Down" },
-    { KEY_HOME, "kphome", N_ ("Home on keypad"), "Home" },
-    { KEY_END, "kpend", N_ ("End on keypad"), "End" },
-    { KEY_NPAGE, "kpnpage", N_ ("Page Down keypad"), "PgDn" },
-    { KEY_PPAGE, "kpppage", N_ ("Page Up keypad"), "PgUp" },
-    { KEY_IC, "kpinsert", N_ ("Insert on keypad"), "Ins" },
-    { KEY_DC, "kpdelete", N_ ("Delete on keypad"), "Del" },
+    { MCKEY_LEFT, "kpleft", N_ ("Left arrow keypad"), "Left" },
+    { MCKEY_RIGHT, "kpright", N_ ("Right arrow keypad"), "Right" },
+    { MCKEY_UP, "kpup", N_ ("Up arrow keypad"), "Up" },
+    { MCKEY_DOWN, "kpdown", N_ ("Down arrow keypad"), "Down" },
+    { MCKEY_HOME, "kphome", N_ ("Home on keypad"), "Home" },
+    { MCKEY_END, "kpend", N_ ("End on keypad"), "End" },
+    { MCKEY_PGDN, "kpnpage", N_ ("Page Down keypad"), "PgDn" },
+    { MCKEY_PGUP, "kpppage", N_ ("Page Up keypad"), "PgUp" },
+    { MCKEY_INS, "kpinsert", N_ ("Insert on keypad"), "Ins" },
+    { MCKEY_DEL, "kpdelete", N_ ("Delete on keypad"), "Del" },
     { (int) '\n', "kpenter", N_ ("Enter on keypad"), "Enter" },
-    { KEY_F (21), "f21", N_ ("Function key 21"), "F21" },
-    { KEY_F (22), "f22", N_ ("Function key 22"), "F22" },
-    { KEY_F (23), "f23", N_ ("Function key 23"), "F23" },
-    { KEY_F (24), "f24", N_ ("Function key 24"), "F24" },
-    { KEY_A1, "a1", N_ ("A1 key"), "A1" },
-    { KEY_C1, "c1", N_ ("C1 key"), "C1" },
+    { MCKEY_F (11), "f11", N_ ("F11"), "F11" },
+    { MCKEY_F (12), "f12", N_ ("F12"), "F12" },
+    { MCKEY_M_SHIFT | MCKEY_F (11), "shift-f11", N_ ("Shift-F11"), "Shift-F11" },
+    { MCKEY_M_SHIFT | MCKEY_F (12), "shift-f12", N_ ("Shift-F12"), "Shift-F12" },
+    { MCKEY_A1, "a1", N_ ("A1 key"), "A1" },
+    { MCKEY_C1, "c1", N_ ("C1 key"), "C1" },
 
     // Alternative label
     { ESC_CHAR, "esc", N_ ("Escape"), "Esc" },
-    { KEY_BACKSPACE, "bs", N_ ("Backspace"), "Bakspace" },
-    { KEY_IC, "ins", N_ ("Insert"), "Ins" },
-    { KEY_DC, "del", N_ ("Delete"), "Del" },
+    { MCKEY_BACKSPACE, "bs", N_ ("Backspace"), "Backspace" },
+    { MCKEY_INS, "ins", N_ ("Insert"), "Ins" },
+    { MCKEY_DEL, "del", N_ ("Delete"), "Del" },
     { (int) '*', "asterisk", N_ ("Asterisk"), "*" },
     { (int) '-', "minus", N_ ("Minus"), "-" },
     { (int) '+', "plus", N_ ("Plus"), "+" },
@@ -207,12 +205,12 @@ const key_code_name_t key_name_conv_tab[] = {
     { (int) '@', "at", N_ ("At sign"), "@" },
 
     // meta keys
-    { KEY_M_CTRL, "control", N_ ("Ctrl"), "C" },
-    { KEY_M_CTRL, "ctrl", N_ ("Ctrl"), "C" },
-    { KEY_M_ALT, "meta", N_ ("Alt"), "M" },
-    { KEY_M_ALT, "alt", N_ ("Alt"), "M" },
-    { KEY_M_ALT, "ralt", N_ ("Alt"), "M" },
-    { KEY_M_SHIFT, "shift", N_ ("Shift"), "S" },
+    { MCKEY_M_CTRL, "control", N_ ("Ctrl"), "C" },
+    { MCKEY_M_CTRL, "ctrl", N_ ("Ctrl"), "C" },
+    { MCKEY_M_ALT, "meta", N_ ("Alt"), "M" },
+    { MCKEY_M_ALT, "alt", N_ ("Alt"), "M" },
+    { MCKEY_M_ALT, "ralt", N_ ("Alt"), "M" },
+    { MCKEY_M_SHIFT, "shift", N_ ("Shift"), "S" },
 
     { 0, NULL, NULL, NULL },
 };
@@ -288,163 +286,163 @@ static key_define_t mc_default_keys[] = {
 
 /* Broken terminfo and termcap databases on xterminals */
 static key_define_t xterm_key_defines[] = {
-    { KEY_F (1), ESC_STR "OP", MCKEY_NOACTION },
-    { KEY_F (2), ESC_STR "OQ", MCKEY_NOACTION },
-    { KEY_F (3), ESC_STR "OR", MCKEY_NOACTION },
-    { KEY_F (4), ESC_STR "OS", MCKEY_NOACTION },
-    { KEY_F (1), ESC_STR "[11~", MCKEY_NOACTION },
-    { KEY_F (2), ESC_STR "[12~", MCKEY_NOACTION },
-    { KEY_F (3), ESC_STR "[13~", MCKEY_NOACTION },
-    { KEY_F (4), ESC_STR "[14~", MCKEY_NOACTION },
-    { KEY_F (5), ESC_STR "[15~", MCKEY_NOACTION },
-    { KEY_F (6), ESC_STR "[17~", MCKEY_NOACTION },
-    { KEY_F (7), ESC_STR "[18~", MCKEY_NOACTION },
-    { KEY_F (8), ESC_STR "[19~", MCKEY_NOACTION },
-    { KEY_F (9), ESC_STR "[20~", MCKEY_NOACTION },
-    { KEY_F (10), ESC_STR "[21~", MCKEY_NOACTION },
+    { MCKEY_F (1), ESC_STR "OP", MCKEY_NOACTION },
+    { MCKEY_F (2), ESC_STR "OQ", MCKEY_NOACTION },
+    { MCKEY_F (3), ESC_STR "OR", MCKEY_NOACTION },
+    { MCKEY_F (4), ESC_STR "OS", MCKEY_NOACTION },
+    { MCKEY_F (1), ESC_STR "[11~", MCKEY_NOACTION },
+    { MCKEY_F (2), ESC_STR "[12~", MCKEY_NOACTION },
+    { MCKEY_F (3), ESC_STR "[13~", MCKEY_NOACTION },
+    { MCKEY_F (4), ESC_STR "[14~", MCKEY_NOACTION },
+    { MCKEY_F (5), ESC_STR "[15~", MCKEY_NOACTION },
+    { MCKEY_F (6), ESC_STR "[17~", MCKEY_NOACTION },
+    { MCKEY_F (7), ESC_STR "[18~", MCKEY_NOACTION },
+    { MCKEY_F (8), ESC_STR "[19~", MCKEY_NOACTION },
+    { MCKEY_F (9), ESC_STR "[20~", MCKEY_NOACTION },
+    { MCKEY_F (10), ESC_STR "[21~", MCKEY_NOACTION },
 
     // old xterm Shift-arrows
-    { KEY_M_SHIFT | KEY_UP, ESC_STR "O2A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_DOWN, ESC_STR "O2B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_RIGHT, ESC_STR "O2C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_LEFT, ESC_STR "O2D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_UP, ESC_STR "O2A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_DOWN, ESC_STR "O2B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_RIGHT, ESC_STR "O2C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_LEFT, ESC_STR "O2D", MCKEY_NOACTION },
 
     // new xterm Shift-arrows
-    { KEY_M_SHIFT | KEY_UP, ESC_STR "[1;2A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_DOWN, ESC_STR "[1;2B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_RIGHT, ESC_STR "[1;2C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_LEFT, ESC_STR "[1;2D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_UP, ESC_STR "[1;2A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_DOWN, ESC_STR "[1;2B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_RIGHT, ESC_STR "[1;2C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_LEFT, ESC_STR "[1;2D", MCKEY_NOACTION },
 
     // more xterm keys with modifiers
-    { KEY_M_CTRL | KEY_PPAGE, ESC_STR "[5;5~", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_NPAGE, ESC_STR "[6;5~", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_IC, ESC_STR "[2;5~", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_DC, ESC_STR "[3;5~", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_HOME, ESC_STR "[1;5H", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_END, ESC_STR "[1;5F", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_HOME, ESC_STR "[1;2H", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_END, ESC_STR "[1;2F", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_UP, ESC_STR "[1;5A", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_DOWN, ESC_STR "[1;5B", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_RIGHT, ESC_STR "[1;5C", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_LEFT, ESC_STR "[1;5D", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_IC, ESC_STR "[2;2~", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_DC, ESC_STR "[3;2~", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_UP, ESC_STR "[1;6A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_DOWN, ESC_STR "[1;6B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_RIGHT, ESC_STR "[1;6C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_LEFT, ESC_STR "[1;6D", MCKEY_NOACTION },
-    { KEY_M_SHIFT | '\t', ESC_STR "[Z", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_PGUP, ESC_STR "[5;5~", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_PGDN, ESC_STR "[6;5~", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_INS, ESC_STR "[2;5~", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_DEL, ESC_STR "[3;5~", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_HOME, ESC_STR "[1;5H", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_END, ESC_STR "[1;5F", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_HOME, ESC_STR "[1;2H", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_END, ESC_STR "[1;2F", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_UP, ESC_STR "[1;5A", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "[1;5B", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "[1;5C", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "[1;5D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_INS, ESC_STR "[2;2~", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_DEL, ESC_STR "[3;2~", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_UP, ESC_STR "[1;6A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "[1;6B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "[1;6C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "[1;6D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | '\t', ESC_STR "[Z", MCKEY_NOACTION },
 
     // putty
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_UP, ESC_STR "[[1;6A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_DOWN, ESC_STR "[[1;6B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_RIGHT, ESC_STR "[[1;6C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_LEFT, ESC_STR "[[1;6D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_UP, ESC_STR "[[1;6A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "[[1;6B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "[[1;6C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "[[1;6D", MCKEY_NOACTION },
 
     // putty alt-arrow keys
     // removed as source esc esc esc trouble
     /*
-       { KEY_M_ALT | KEY_UP,    ESC_STR ESC_STR "OA", MCKEY_NOACTION },
-       { KEY_M_ALT | KEY_DOWN,  ESC_STR ESC_STR "OB", MCKEY_NOACTION },
-       { KEY_M_ALT | KEY_RIGHT, ESC_STR ESC_STR "OC", MCKEY_NOACTION },
-       { KEY_M_ALT | KEY_LEFT,  ESC_STR ESC_STR "OD", MCKEY_NOACTION },
-       { KEY_M_ALT | KEY_PPAGE, ESC_STR ESC_STR "[5~", MCKEY_NOACTION },
-       { KEY_M_ALT | KEY_NPAGE, ESC_STR ESC_STR "[6~", MCKEY_NOACTION },
-       { KEY_M_ALT | KEY_HOME,  ESC_STR ESC_STR "[1~", MCKEY_NOACTION },
-       { KEY_M_ALT | KEY_END,   ESC_STR ESC_STR "[4~", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_UP, ESC_STR ESC_STR "OA", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_DOWN, ESC_STR ESC_STR "OB", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_RIGHT, ESC_STR ESC_STR "OC", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_LEFT, ESC_STR ESC_STR "OD", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_PGUP, ESC_STR ESC_STR "[5~", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_PGDN, ESC_STR ESC_STR "[6~", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_HOME, ESC_STR ESC_STR "[1~", MCKEY_NOACTION },
+       { MCKEY_M_ALT | MCKEY_END, ESC_STR ESC_STR "[4~", MCKEY_NOACTION },
 
-       { KEY_M_CTRL | KEY_M_ALT | KEY_UP,    ESC_STR ESC_STR "[1;2A", MCKEY_NOACTION },
-       { KEY_M_CTRL | KEY_M_ALT | KEY_DOWN,  ESC_STR ESC_STR "[1;2B", MCKEY_NOACTION },
-       { KEY_M_CTRL | KEY_M_ALT | KEY_RIGHT, ESC_STR ESC_STR "[1;2C", MCKEY_NOACTION },
-       { KEY_M_CTRL | KEY_M_ALT | KEY_LEFT,  ESC_STR ESC_STR "[1;2D", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_UP, ESC_STR ESC_STR "[1;2A", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_DOWN, ESC_STR ESC_STR "[1;2B", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_RIGHT, ESC_STR ESC_STR "[1;2C", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_LEFT, ESC_STR ESC_STR "[1;2D", MCKEY_NOACTION },
 
-       { KEY_M_CTRL | KEY_M_ALT | KEY_PPAGE, ESC_STR ESC_STR "[[5;5~", MCKEY_NOACTION },
-       { KEY_M_CTRL | KEY_M_ALT | KEY_NPAGE, ESC_STR ESC_STR "[[6;5~", MCKEY_NOACTION },
-       { KEY_M_CTRL | KEY_M_ALT | KEY_HOME,  ESC_STR ESC_STR "[1;5H", MCKEY_NOACTION },
-       { KEY_M_CTRL | KEY_M_ALT | KEY_END,   ESC_STR ESC_STR "[1;5F", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_PGUP, ESC_STR ESC_STR "[[5;5~", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_PGDN, ESC_STR ESC_STR "[[6;5~", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_HOME, ESC_STR ESC_STR "[1;5H", MCKEY_NOACTION },
+       { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_END, ESC_STR ESC_STR "[1;5F", MCKEY_NOACTION },
      */
     // xterm alt-arrow keys
-    { KEY_M_ALT | KEY_UP, ESC_STR "[1;3A", MCKEY_NOACTION },
-    { KEY_M_ALT | KEY_DOWN, ESC_STR "[1;3B", MCKEY_NOACTION },
-    { KEY_M_ALT | KEY_RIGHT, ESC_STR "[1;3C", MCKEY_NOACTION },
-    { KEY_M_ALT | KEY_LEFT, ESC_STR "[1;3D", MCKEY_NOACTION },
-    { KEY_M_ALT | KEY_PPAGE, ESC_STR "[5;3~", MCKEY_NOACTION },
-    { KEY_M_ALT | KEY_NPAGE, ESC_STR "[6;3~", MCKEY_NOACTION },
-    { KEY_M_ALT | KEY_HOME, ESC_STR "[1~", MCKEY_NOACTION },
-    { KEY_M_ALT | KEY_END, ESC_STR "[4~", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_UP, ESC_STR "[1;7A", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_DOWN, ESC_STR "[1;7B", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_RIGHT, ESC_STR "[1;7C", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_LEFT, ESC_STR "[1;7D", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_PPAGE, ESC_STR "[5;7~", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_NPAGE, ESC_STR "[6;7~", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_HOME, ESC_STR "OH", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_M_ALT | KEY_END, ESC_STR "OF", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_UP, ESC_STR "[1;3A", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_DOWN, ESC_STR "[1;3B", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_RIGHT, ESC_STR "[1;3C", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_LEFT, ESC_STR "[1;3D", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_PGUP, ESC_STR "[5;3~", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_PGDN, ESC_STR "[6;3~", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_HOME, ESC_STR "[1~", MCKEY_NOACTION },
+    { MCKEY_M_ALT | MCKEY_END, ESC_STR "[4~", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_UP, ESC_STR "[1;7A", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_DOWN, ESC_STR "[1;7B", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_RIGHT, ESC_STR "[1;7C", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_LEFT, ESC_STR "[1;7D", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_PGUP, ESC_STR "[5;7~", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_PGDN, ESC_STR "[6;7~", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_HOME, ESC_STR "OH", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_M_ALT | MCKEY_END, ESC_STR "OF", MCKEY_NOACTION },
 
-    { KEY_M_SHIFT | KEY_M_ALT | KEY_UP, ESC_STR "[1;4A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_ALT | KEY_DOWN, ESC_STR "[1;4B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_ALT | KEY_RIGHT, ESC_STR "[1;4C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_ALT | KEY_LEFT, ESC_STR "[1;4D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_ALT | MCKEY_UP, ESC_STR "[1;4A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_ALT | MCKEY_DOWN, ESC_STR "[1;4B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_ALT | MCKEY_RIGHT, ESC_STR "[1;4C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_ALT | MCKEY_LEFT, ESC_STR "[1;4D", MCKEY_NOACTION },
 
     // rxvt keys with modifiers
-    { KEY_M_SHIFT | KEY_UP, ESC_STR "[a", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_DOWN, ESC_STR "[b", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_RIGHT, ESC_STR "[c", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_LEFT, ESC_STR "[d", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_UP, ESC_STR "Oa", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_DOWN, ESC_STR "Ob", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_RIGHT, ESC_STR "Oc", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_LEFT, ESC_STR "Od", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_PPAGE, ESC_STR "[5^", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_NPAGE, ESC_STR "[6^", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_HOME, ESC_STR "[7^", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_END, ESC_STR "[8^", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_HOME, ESC_STR "[7$", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_END, ESC_STR "[8$", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_IC, ESC_STR "[2^", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_DC, ESC_STR "[3^", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_DC, ESC_STR "[3$", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_UP, ESC_STR "[a", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_DOWN, ESC_STR "[b", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_RIGHT, ESC_STR "[c", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_LEFT, ESC_STR "[d", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_UP, ESC_STR "Oa", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "Ob", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "Oc", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "Od", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_PGUP, ESC_STR "[5^", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_PGDN, ESC_STR "[6^", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_HOME, ESC_STR "[7^", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_END, ESC_STR "[8^", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_HOME, ESC_STR "[7$", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_END, ESC_STR "[8$", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_INS, ESC_STR "[2^", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_DEL, ESC_STR "[3^", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_DEL, ESC_STR "[3$", MCKEY_NOACTION },
 
     // konsole keys with modifiers
-    { KEY_M_SHIFT | KEY_HOME, ESC_STR "O2H", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_END, ESC_STR "O2F", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_HOME, ESC_STR "O2H", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_END, ESC_STR "O2F", MCKEY_NOACTION },
 
     // gnome-terminal
-    { KEY_M_SHIFT | KEY_UP, ESC_STR "[2A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_DOWN, ESC_STR "[2B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_RIGHT, ESC_STR "[2C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_LEFT, ESC_STR "[2D", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_UP, ESC_STR "[5A", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_DOWN, ESC_STR "[5B", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_RIGHT, ESC_STR "[5C", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_LEFT, ESC_STR "[5D", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_UP, ESC_STR "[6A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_DOWN, ESC_STR "[6B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_RIGHT, ESC_STR "[6C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_LEFT, ESC_STR "[6D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_UP, ESC_STR "[2A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_DOWN, ESC_STR "[2B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_RIGHT, ESC_STR "[2C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_LEFT, ESC_STR "[2D", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_UP, ESC_STR "[5A", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "[5B", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "[5C", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "[5D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_UP, ESC_STR "[6A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "[6B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "[6C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "[6D", MCKEY_NOACTION },
 
     // gnome-terminal - application mode
-    { KEY_M_CTRL | KEY_UP, ESC_STR "O5A", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_DOWN, ESC_STR "O5B", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_RIGHT, ESC_STR "O5C", MCKEY_NOACTION },
-    { KEY_M_CTRL | KEY_LEFT, ESC_STR "O5D", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_UP, ESC_STR "O6A", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_DOWN, ESC_STR "O6B", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_RIGHT, ESC_STR "O6C", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_M_CTRL | KEY_LEFT, ESC_STR "O6D", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_UP, ESC_STR "O5A", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "O5B", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "O5C", MCKEY_NOACTION },
+    { MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "O5D", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_UP, ESC_STR "O6A", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "O6B", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "O6C", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "O6D", MCKEY_NOACTION },
 
     // iTerm
-    { KEY_M_SHIFT | KEY_PPAGE, ESC_STR "[5;2~", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_NPAGE, ESC_STR "[6;2~", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_PGUP, ESC_STR "[5;2~", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_PGDN, ESC_STR "[6;2~", MCKEY_NOACTION },
 
     // putty
-    { KEY_M_SHIFT | KEY_PPAGE, ESC_STR "[[5;53~", MCKEY_NOACTION },
-    { KEY_M_SHIFT | KEY_NPAGE, ESC_STR "[[6;53~", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_PGUP, ESC_STR "[[5;53~", MCKEY_NOACTION },
+    { MCKEY_M_SHIFT | MCKEY_PGDN, ESC_STR "[[6;53~", MCKEY_NOACTION },
 
     // keypad keys
-    { KEY_IC, ESC_STR "Op", MCKEY_NOACTION },
-    { KEY_DC, ESC_STR "On", MCKEY_NOACTION },
+    { MCKEY_INS, ESC_STR "Op", MCKEY_NOACTION },
+    { MCKEY_DEL, ESC_STR "On", MCKEY_NOACTION },
     { '/', ESC_STR "Oo", MCKEY_NOACTION },
     { '\n', ESC_STR "OM", MCKEY_NOACTION },
 
@@ -455,72 +453,72 @@ static key_define_t xterm_key_defines[] = {
    which are undefined in termcap/terminfo */
 static key_define_t qansi_key_defines[] = {
     // qansi-m terminal
-    { KEY_M_CTRL | KEY_NPAGE, ESC_STR "[u", MCKEY_NOACTION },        // Ctrl-PgDown
-    { KEY_M_CTRL | KEY_PPAGE, ESC_STR "[v", MCKEY_NOACTION },        // Ctrl-PgUp
-    { KEY_M_CTRL | KEY_HOME, ESC_STR "[h", MCKEY_NOACTION },         // Ctrl-Home
-    { KEY_M_CTRL | KEY_END, ESC_STR "[y", MCKEY_NOACTION },          // Ctrl-End
-    { KEY_M_CTRL | KEY_IC, ESC_STR "[`", MCKEY_NOACTION },           // Ctrl-Insert
-    { KEY_M_CTRL | KEY_DC, ESC_STR "[p", MCKEY_NOACTION },           // Ctrl-Delete
-    { KEY_M_CTRL | KEY_LEFT, ESC_STR "[d", MCKEY_NOACTION },         // Ctrl-Left
-    { KEY_M_CTRL | KEY_RIGHT, ESC_STR "[c", MCKEY_NOACTION },        // Ctrl-Right
-    { KEY_M_CTRL | KEY_DOWN, ESC_STR "[b", MCKEY_NOACTION },         // Ctrl-Down
-    { KEY_M_CTRL | KEY_UP, ESC_STR "[a", MCKEY_NOACTION },           // Ctrl-Up
-    { KEY_M_CTRL | KEY_KP_ADD, ESC_STR "[s", MCKEY_NOACTION },       // Ctrl-Gr-Plus
-    { KEY_M_CTRL | KEY_KP_SUBTRACT, ESC_STR "[t", MCKEY_NOACTION },  // Ctrl-Gr-Minus
-    { KEY_M_CTRL | '\t', ESC_STR "[z", MCKEY_NOACTION },             // Ctrl-Tab
-    { KEY_M_SHIFT | '\t', ESC_STR "[Z", MCKEY_NOACTION },            // Shift-Tab
-    { KEY_M_CTRL | KEY_F (1), ESC_STR "[1~", MCKEY_NOACTION },       // Ctrl-F1
-    { KEY_M_CTRL | KEY_F (2), ESC_STR "[2~", MCKEY_NOACTION },       // Ctrl-F2
-    { KEY_M_CTRL | KEY_F (3), ESC_STR "[3~", MCKEY_NOACTION },       // Ctrl-F3
-    { KEY_M_CTRL | KEY_F (4), ESC_STR "[4~", MCKEY_NOACTION },       // Ctrl-F4
-    { KEY_M_CTRL | KEY_F (5), ESC_STR "[5~", MCKEY_NOACTION },       // Ctrl-F5
-    { KEY_M_CTRL | KEY_F (6), ESC_STR "[6~", MCKEY_NOACTION },       // Ctrl-F6
-    { KEY_M_CTRL | KEY_F (7), ESC_STR "[7~", MCKEY_NOACTION },       // Ctrl-F7
-    { KEY_M_CTRL | KEY_F (8), ESC_STR "[8~", MCKEY_NOACTION },       // Ctrl-F8
-    { KEY_M_CTRL | KEY_F (9), ESC_STR "[9~", MCKEY_NOACTION },       // Ctrl-F9
-    { KEY_M_CTRL | KEY_F (10), ESC_STR "[10~", MCKEY_NOACTION },     // Ctrl-F10
-    { KEY_M_CTRL | KEY_F (11), ESC_STR "[11~", MCKEY_NOACTION },     // Ctrl-F11
-    { KEY_M_CTRL | KEY_F (12), ESC_STR "[12~", MCKEY_NOACTION },     // Ctrl-F12
-    { KEY_M_ALT | KEY_F (1), ESC_STR "[17~", MCKEY_NOACTION },       // Alt-F1
-    { KEY_M_ALT | KEY_F (2), ESC_STR "[18~", MCKEY_NOACTION },       // Alt-F2
-    { KEY_M_ALT | KEY_F (3), ESC_STR "[19~", MCKEY_NOACTION },       // Alt-F3
-    { KEY_M_ALT | KEY_F (4), ESC_STR "[20~", MCKEY_NOACTION },       // Alt-F4
-    { KEY_M_ALT | KEY_F (5), ESC_STR "[21~", MCKEY_NOACTION },       // Alt-F5
-    { KEY_M_ALT | KEY_F (6), ESC_STR "[22~", MCKEY_NOACTION },       // Alt-F6
-    { KEY_M_ALT | KEY_F (7), ESC_STR "[23~", MCKEY_NOACTION },       // Alt-F7
-    { KEY_M_ALT | KEY_F (8), ESC_STR "[24~", MCKEY_NOACTION },       // Alt-F8
-    { KEY_M_ALT | KEY_F (9), ESC_STR "[25~", MCKEY_NOACTION },       // Alt-F9
-    { KEY_M_ALT | KEY_F (10), ESC_STR "[26~", MCKEY_NOACTION },      // Alt-F10
-    { KEY_M_ALT | KEY_F (11), ESC_STR "[27~", MCKEY_NOACTION },      // Alt-F11
-    { KEY_M_ALT | KEY_F (12), ESC_STR "[28~", MCKEY_NOACTION },      // Alt-F12
-    { KEY_M_ALT | 'a', ESC_STR "Na", MCKEY_NOACTION },               // Alt-a
-    { KEY_M_ALT | 'b', ESC_STR "Nb", MCKEY_NOACTION },               // Alt-b
-    { KEY_M_ALT | 'c', ESC_STR "Nc", MCKEY_NOACTION },               // Alt-c
-    { KEY_M_ALT | 'd', ESC_STR "Nd", MCKEY_NOACTION },               // Alt-d
-    { KEY_M_ALT | 'e', ESC_STR "Ne", MCKEY_NOACTION },               // Alt-e
-    { KEY_M_ALT | 'f', ESC_STR "Nf", MCKEY_NOACTION },               // Alt-f
-    { KEY_M_ALT | 'g', ESC_STR "Ng", MCKEY_NOACTION },               // Alt-g
-    { KEY_M_ALT | 'h', ESC_STR "Nh", MCKEY_NOACTION },               // Alt-h
-    { KEY_M_ALT | 'i', ESC_STR "Ni", MCKEY_NOACTION },               // Alt-i
-    { KEY_M_ALT | 'j', ESC_STR "Nj", MCKEY_NOACTION },               // Alt-j
-    { KEY_M_ALT | 'k', ESC_STR "Nk", MCKEY_NOACTION },               // Alt-k
-    { KEY_M_ALT | 'l', ESC_STR "Nl", MCKEY_NOACTION },               // Alt-l
-    { KEY_M_ALT | 'm', ESC_STR "Nm", MCKEY_NOACTION },               // Alt-m
-    { KEY_M_ALT | 'n', ESC_STR "Nn", MCKEY_NOACTION },               // Alt-n
-    { KEY_M_ALT | 'o', ESC_STR "No", MCKEY_NOACTION },               // Alt-o
-    { KEY_M_ALT | 'p', ESC_STR "Np", MCKEY_NOACTION },               // Alt-p
-    { KEY_M_ALT | 'q', ESC_STR "Nq", MCKEY_NOACTION },               // Alt-q
-    { KEY_M_ALT | 'r', ESC_STR "Nr", MCKEY_NOACTION },               // Alt-r
-    { KEY_M_ALT | 's', ESC_STR "Ns", MCKEY_NOACTION },               // Alt-s
-    { KEY_M_ALT | 't', ESC_STR "Nt", MCKEY_NOACTION },               // Alt-t
-    { KEY_M_ALT | 'u', ESC_STR "Nu", MCKEY_NOACTION },               // Alt-u
-    { KEY_M_ALT | 'v', ESC_STR "Nv", MCKEY_NOACTION },               // Alt-v
-    { KEY_M_ALT | 'w', ESC_STR "Nw", MCKEY_NOACTION },               // Alt-w
-    { KEY_M_ALT | 'x', ESC_STR "Nx", MCKEY_NOACTION },               // Alt-x
-    { KEY_M_ALT | 'y', ESC_STR "Ny", MCKEY_NOACTION },               // Alt-y
-    { KEY_M_ALT | 'z', ESC_STR "Nz", MCKEY_NOACTION },               // Alt-z
-    { KEY_KP_SUBTRACT, ESC_STR "[S", MCKEY_NOACTION },               // Gr-Minus
-    { KEY_KP_ADD, ESC_STR "[T", MCKEY_NOACTION },                    // Gr-Plus
+    { MCKEY_M_CTRL | MCKEY_PGDN, ESC_STR "[u", MCKEY_NOACTION },         // Ctrl-PgDown
+    { MCKEY_M_CTRL | MCKEY_PGUP, ESC_STR "[v", MCKEY_NOACTION },         // Ctrl-PgUp
+    { MCKEY_M_CTRL | MCKEY_HOME, ESC_STR "[h", MCKEY_NOACTION },         // Ctrl-Home
+    { MCKEY_M_CTRL | MCKEY_END, ESC_STR "[y", MCKEY_NOACTION },          // Ctrl-End
+    { MCKEY_M_CTRL | MCKEY_INS, ESC_STR "[`", MCKEY_NOACTION },          // Ctrl-Insert
+    { MCKEY_M_CTRL | MCKEY_DEL, ESC_STR "[p", MCKEY_NOACTION },          // Ctrl-Delete
+    { MCKEY_M_CTRL | MCKEY_LEFT, ESC_STR "[d", MCKEY_NOACTION },         // Ctrl-Left
+    { MCKEY_M_CTRL | MCKEY_RIGHT, ESC_STR "[c", MCKEY_NOACTION },        // Ctrl-Right
+    { MCKEY_M_CTRL | MCKEY_DOWN, ESC_STR "[b", MCKEY_NOACTION },         // Ctrl-Down
+    { MCKEY_M_CTRL | MCKEY_UP, ESC_STR "[a", MCKEY_NOACTION },           // Ctrl-Up
+    { MCKEY_M_CTRL | MCKEY_KP_ADD, ESC_STR "[s", MCKEY_NOACTION },       // Ctrl-Gr-Plus
+    { MCKEY_M_CTRL | MCKEY_KP_SUBTRACT, ESC_STR "[t", MCKEY_NOACTION },  // Ctrl-Gr-Minus
+    { MCKEY_M_CTRL | '\t', ESC_STR "[z", MCKEY_NOACTION },               // Ctrl-Tab
+    { MCKEY_M_SHIFT | '\t', ESC_STR "[Z", MCKEY_NOACTION },              // Shift-Tab
+    { MCKEY_M_CTRL | MCKEY_F (1), ESC_STR "[1~", MCKEY_NOACTION },       // Ctrl-F1
+    { MCKEY_M_CTRL | MCKEY_F (2), ESC_STR "[2~", MCKEY_NOACTION },       // Ctrl-F2
+    { MCKEY_M_CTRL | MCKEY_F (3), ESC_STR "[3~", MCKEY_NOACTION },       // Ctrl-F3
+    { MCKEY_M_CTRL | MCKEY_F (4), ESC_STR "[4~", MCKEY_NOACTION },       // Ctrl-F4
+    { MCKEY_M_CTRL | MCKEY_F (5), ESC_STR "[5~", MCKEY_NOACTION },       // Ctrl-F5
+    { MCKEY_M_CTRL | MCKEY_F (6), ESC_STR "[6~", MCKEY_NOACTION },       // Ctrl-F6
+    { MCKEY_M_CTRL | MCKEY_F (7), ESC_STR "[7~", MCKEY_NOACTION },       // Ctrl-F7
+    { MCKEY_M_CTRL | MCKEY_F (8), ESC_STR "[8~", MCKEY_NOACTION },       // Ctrl-F8
+    { MCKEY_M_CTRL | MCKEY_F (9), ESC_STR "[9~", MCKEY_NOACTION },       // Ctrl-F9
+    { MCKEY_M_CTRL | MCKEY_F (10), ESC_STR "[10~", MCKEY_NOACTION },     // Ctrl-F10
+    { MCKEY_M_CTRL | MCKEY_F (11), ESC_STR "[11~", MCKEY_NOACTION },     // Ctrl-F11
+    { MCKEY_M_CTRL | MCKEY_F (12), ESC_STR "[12~", MCKEY_NOACTION },     // Ctrl-F12
+    { MCKEY_M_ALT | MCKEY_F (1), ESC_STR "[17~", MCKEY_NOACTION },       // Alt-F1
+    { MCKEY_M_ALT | MCKEY_F (2), ESC_STR "[18~", MCKEY_NOACTION },       // Alt-F2
+    { MCKEY_M_ALT | MCKEY_F (3), ESC_STR "[19~", MCKEY_NOACTION },       // Alt-F3
+    { MCKEY_M_ALT | MCKEY_F (4), ESC_STR "[20~", MCKEY_NOACTION },       // Alt-F4
+    { MCKEY_M_ALT | MCKEY_F (5), ESC_STR "[21~", MCKEY_NOACTION },       // Alt-F5
+    { MCKEY_M_ALT | MCKEY_F (6), ESC_STR "[22~", MCKEY_NOACTION },       // Alt-F6
+    { MCKEY_M_ALT | MCKEY_F (7), ESC_STR "[23~", MCKEY_NOACTION },       // Alt-F7
+    { MCKEY_M_ALT | MCKEY_F (8), ESC_STR "[24~", MCKEY_NOACTION },       // Alt-F8
+    { MCKEY_M_ALT | MCKEY_F (9), ESC_STR "[25~", MCKEY_NOACTION },       // Alt-F9
+    { MCKEY_M_ALT | MCKEY_F (10), ESC_STR "[26~", MCKEY_NOACTION },      // Alt-F10
+    { MCKEY_M_ALT | MCKEY_F (11), ESC_STR "[27~", MCKEY_NOACTION },      // Alt-F11
+    { MCKEY_M_ALT | MCKEY_F (12), ESC_STR "[28~", MCKEY_NOACTION },      // Alt-F12
+    { MCKEY_M_ALT | 'a', ESC_STR "Na", MCKEY_NOACTION },                 // Alt-a
+    { MCKEY_M_ALT | 'b', ESC_STR "Nb", MCKEY_NOACTION },                 // Alt-b
+    { MCKEY_M_ALT | 'c', ESC_STR "Nc", MCKEY_NOACTION },                 // Alt-c
+    { MCKEY_M_ALT | 'd', ESC_STR "Nd", MCKEY_NOACTION },                 // Alt-d
+    { MCKEY_M_ALT | 'e', ESC_STR "Ne", MCKEY_NOACTION },                 // Alt-e
+    { MCKEY_M_ALT | 'f', ESC_STR "Nf", MCKEY_NOACTION },                 // Alt-f
+    { MCKEY_M_ALT | 'g', ESC_STR "Ng", MCKEY_NOACTION },                 // Alt-g
+    { MCKEY_M_ALT | 'h', ESC_STR "Nh", MCKEY_NOACTION },                 // Alt-h
+    { MCKEY_M_ALT | 'i', ESC_STR "Ni", MCKEY_NOACTION },                 // Alt-i
+    { MCKEY_M_ALT | 'j', ESC_STR "Nj", MCKEY_NOACTION },                 // Alt-j
+    { MCKEY_M_ALT | 'k', ESC_STR "Nk", MCKEY_NOACTION },                 // Alt-k
+    { MCKEY_M_ALT | 'l', ESC_STR "Nl", MCKEY_NOACTION },                 // Alt-l
+    { MCKEY_M_ALT | 'm', ESC_STR "Nm", MCKEY_NOACTION },                 // Alt-m
+    { MCKEY_M_ALT | 'n', ESC_STR "Nn", MCKEY_NOACTION },                 // Alt-n
+    { MCKEY_M_ALT | 'o', ESC_STR "No", MCKEY_NOACTION },                 // Alt-o
+    { MCKEY_M_ALT | 'p', ESC_STR "Np", MCKEY_NOACTION },                 // Alt-p
+    { MCKEY_M_ALT | 'q', ESC_STR "Nq", MCKEY_NOACTION },                 // Alt-q
+    { MCKEY_M_ALT | 'r', ESC_STR "Nr", MCKEY_NOACTION },                 // Alt-r
+    { MCKEY_M_ALT | 's', ESC_STR "Ns", MCKEY_NOACTION },                 // Alt-s
+    { MCKEY_M_ALT | 't', ESC_STR "Nt", MCKEY_NOACTION },                 // Alt-t
+    { MCKEY_M_ALT | 'u', ESC_STR "Nu", MCKEY_NOACTION },                 // Alt-u
+    { MCKEY_M_ALT | 'v', ESC_STR "Nv", MCKEY_NOACTION },                 // Alt-v
+    { MCKEY_M_ALT | 'w', ESC_STR "Nw", MCKEY_NOACTION },                 // Alt-w
+    { MCKEY_M_ALT | 'x', ESC_STR "Nx", MCKEY_NOACTION },                 // Alt-x
+    { MCKEY_M_ALT | 'y', ESC_STR "Ny", MCKEY_NOACTION },                 // Alt-y
+    { MCKEY_M_ALT | 'z', ESC_STR "Nz", MCKEY_NOACTION },                 // Alt-z
+    { MCKEY_KP_SUBTRACT, ESC_STR "[S", MCKEY_NOACTION },                 // Gr-Minus
+    { MCKEY_KP_ADD, ESC_STR "[T", MCKEY_NOACTION },                      // Gr-Plus
     { 0, NULL, MCKEY_NOACTION },
 };
 
@@ -910,9 +908,9 @@ get_modifier (void)
                           &mask);
 
         if ((mask & ShiftMask) != 0)
-            result |= KEY_M_SHIFT;
+            result |= MCKEY_M_SHIFT;
         if ((mask & ControlMask) != 0)
-            result |= KEY_M_CTRL;
+            result |= MCKEY_M_CTRL;
         return result;
     }
 #endif
@@ -957,11 +955,11 @@ get_modifier (void)
         shift_ext_status = mod_status & 0xffffff00UL;
         mod_status &= 0x7f;
         if ((mod_status & _LINESTATUS_CON_ALT) != 0)
-            result |= KEY_M_ALT;
+            result |= MCKEY_M_ALT;
         if ((mod_status & _LINESTATUS_CON_CTRL) != 0)
-            result |= KEY_M_CTRL;
+            result |= MCKEY_M_CTRL;
         if ((mod_status & _LINESTATUS_CON_SHIFT) != 0 || (shift_ext_status & 0x00000800UL) != 0)
-            result |= KEY_M_SHIFT;
+            result |= MCKEY_M_SHIFT;
     }
     else
     {
@@ -969,11 +967,11 @@ get_modifier (void)
 
         (*ph_query_cursor) (ph_ig, &cursor_info);
         if ((cursor_info.key_mods & 0x04) != 0)
-            result |= KEY_M_ALT;
+            result |= MCKEY_M_ALT;
         if ((cursor_info.key_mods & 0x02) != 0)
-            result |= KEY_M_CTRL;
+            result |= MCKEY_M_CTRL;
         if ((cursor_info.key_mods & 0x01) != 0)
-            result |= KEY_M_SHIFT;
+            result |= MCKEY_M_SHIFT;
     }
 #endif
 
@@ -986,11 +984,11 @@ get_modifier (void)
 
         // Translate Linux modifiers into mc modifiers
         if ((modifiers & SHIFT_PRESSED) != 0)
-            result |= KEY_M_SHIFT;
+            result |= MCKEY_M_SHIFT;
         if ((modifiers & (ALTL_PRESSED | ALTR_PRESSED)) != 0)
-            result |= KEY_M_ALT;
+            result |= MCKEY_M_ALT;
         if ((modifiers & CONTROL_PRESSED) != 0)
-            result |= KEY_M_CTRL;
+            result |= MCKEY_M_CTRL;
     }
 #endif
 
@@ -1023,8 +1021,8 @@ push_char (int c)
 static int
 correct_key_code (int code)
 {
-    unsigned int c = code & ~KEY_M_MASK;   // code without modifier
-    unsigned int mod = code & KEY_M_MASK;  // modifier
+    unsigned int c = code & ~MCKEY_M_MASK;   // code without modifier
+    unsigned int mod = code & MCKEY_M_MASK;  // modifier
 #ifdef __QNXNTO__
     unsigned int qmod; /* bunch of the QNX console
                           modifiers needs unchanged */
@@ -1041,20 +1039,24 @@ correct_key_code (int code)
     if (c == '\r')
         c = '\n';
 
+#ifdef KEY_SCANCEL
     // This is reported to be useful on AIX
     if (c == KEY_SCANCEL)
         c = '\t';
+#endif
 
+#ifdef KEY_BTAB
     // Convert Back Tab to Shift+Tab
     if (c == KEY_BTAB)
     {
         c = '\t';
-        mod = KEY_M_SHIFT;
+        mod = MCKEY_M_SHIFT;
     }
+#endif
 
-    // F0 is the same as F10 for out purposes
-    if (c == KEY_F (0))
-        c = KEY_F (10);
+    // F0 is the same as F10 for our purposes
+    if (c == MCKEY_F (0))
+        c = MCKEY_F (10);
 
     /*
      * We are not interested if Ctrl was pressed when entering control
@@ -1065,11 +1067,11 @@ correct_key_code (int code)
     if (c == '\b')
     {
         // Special case for backspase ('\b' < 32)
-        c = KEY_BACKSPACE;
-        mod &= ~KEY_M_CTRL;
+        c = MCKEY_BACKSPACE;
+        mod &= ~MCKEY_M_CTRL;
     }
     else if (c < 32 && c != ESC_CHAR && c != '\t' && c != '\n')
-        mod |= KEY_M_CTRL;
+        mod |= MCKEY_M_CTRL;
 
 #ifdef __QNXNTO__
     qmod = get_modifier ();
@@ -1078,66 +1080,77 @@ correct_key_code (int code)
     {
         // Add Ctrl/Alt/Shift-BackSpace
         mod |= get_modifier ();
-        c = KEY_BACKSPACE;
+        c = MCKEY_BACKSPACE;
     }
 
-    if (c == '0' && mod == 0 && (qmod & KEY_M_SHIFT) == KEY_M_SHIFT)
+    if (c == '0' && mod == 0 && (qmod & MCKEY_M_SHIFT) == MCKEY_M_SHIFT)
     {
         // Add Shift-Insert on key pad
-        mod = KEY_M_SHIFT;
-        c = KEY_IC;
+        mod = MCKEY_M_SHIFT;
+        c = MCKEY_INS;
     }
 
-    if (c == '.' && mod == 0 && (qmod & KEY_M_SHIFT) == KEY_M_SHIFT)
+    if (c == '.' && mod == 0 && (qmod & MCKEY_M_SHIFT) == MCKEY_M_SHIFT)
     {
         // Add Shift-Del on key pad
-        mod = KEY_M_SHIFT;
-        c = KEY_DC;
+        mod = MCKEY_M_SHIFT;
+        c = MCKEY_DEL;
     }
 #endif
 
     // Unrecognized 0177 is delete (preserve Ctrl)
     if (c == 0177)
-        c = KEY_BACKSPACE;
+        c = MCKEY_BACKSPACE;
 
 #if 0
     // Unrecognized Ctrl-d is delete 
     if (c == 'd' & 31)
     {
-        c = KEY_DC;
-        mod &= ~KEY_M_CTRL;
+        c = MCKEY_DEL;
+        mod &= ~MCKEY_M_CTRL;
     }
 
     // Unrecognized Ctrl-h is backspace 
     if (c == 'h' & 31)
     {
-        c = KEY_BACKSPACE;
-        mod &= ~KEY_M_CTRL;
+        c = MCKEY_BACKSPACE;
+        mod &= ~MCKEY_M_CTRL;
     }
 #endif
 
     // Shift+BackSpace is backspace
-    if (c == KEY_BACKSPACE && (mod & KEY_M_SHIFT) != 0)
-        mod &= ~KEY_M_SHIFT;
+    if (c == MCKEY_BACKSPACE && (mod & MCKEY_M_SHIFT) != 0)
+        mod &= ~MCKEY_M_SHIFT;
 
+#if 0  // FIXME TO BE REMOVED
     // Convert Shift+Fn to F(n+10)
     if (c >= KEY_F (1) && c <= KEY_F (10) && (mod & KEY_M_SHIFT) != 0)
-        c += 10;
+        c += 12;
 
     // Remove Shift information from function keys
     if (c >= KEY_F (1) && c <= KEY_F (20))
-        mod &= ~KEY_M_SHIFT;
+        mod &= ~MCKEY_M_SHIFT;
+#endif
+
+#ifdef KEY_F  // ncurses only
+    // Convert F(n+12) to Shift+Fn
+    if (c >= KEY_F (13) && c <= KEY_F (24))
+    {
+        c -= 12;
+        mod |= MCKEY_M_SHIFT;
+    }
+#endif
 
     if (!mc_global.tty.alternate_plus_minus)
         switch (c)
         {
-        case KEY_KP_ADD:
+        case MCKEY_KP_ADD:
             c = '+';
             break;
-        case KEY_KP_SUBTRACT:
+        case MCKEY_KP_SUBTRACT:
             c = '-';
             break;
-        case KEY_KP_MULTIPLY:
+        case MCKEY_KP_MULTIPLY:
             c = '*';
             break;
         default:
@@ -1427,11 +1440,11 @@ tty_keyname_to_keycode (const char *name, char **label)
 
             key = lookup_keyname (g_strstrip (*p), &idx);
 
-            if (key == KEY_M_ALT)
+            if (key == MCKEY_M_ALT)
                 use_meta = idx;
-            else if (key == KEY_M_CTRL)
+            else if (key == MCKEY_M_CTRL)
                 use_ctrl = idx;
-            else if (key == KEY_M_SHIFT)
+            else if (key == MCKEY_M_SHIFT)
                 use_shift = idx;
             else
             {
@@ -1495,7 +1508,7 @@ tty_keyname_to_keycode (const char *name, char **label)
         if (k < 127 && k > 31)
             k = g_ascii_toupper ((gchar) k);
         else
-            k |= KEY_M_SHIFT;
+            k |= MCKEY_M_SHIFT;
     }
 
     if (use_ctrl != -1)
@@ -1503,7 +1516,7 @@ tty_keyname_to_keycode (const char *name, char **label)
         if (k < 256)
             k = XCTRL (k);
         else
-            k |= KEY_M_CTRL;
+            k |= MCKEY_M_CTRL;
     }
 
     if (use_meta != -1)
@@ -1518,9 +1531,9 @@ char *
 tty_keycode_to_keyname (const int keycode)
 {
     // code without modifier
-    unsigned int k = keycode & ~KEY_M_MASK;
+    unsigned int k = keycode & ~MCKEY_M_MASK;
     // modifier
-    unsigned int mod = keycode & KEY_M_MASK;
+    unsigned int mod = keycode & MCKEY_M_MASK;
 
     int key_idx = -1;
 
@@ -1531,28 +1544,28 @@ tty_keycode_to_keyname (const int keycode)
 
     if (lookup_keycode (k, &key_idx) || (k > 0 && k < 256))
     {
-        if ((mod & KEY_M_ALT) != 0 && lookup_keycode (KEY_M_ALT, &idx))
+        if ((mod & MCKEY_M_ALT) != 0 && lookup_keycode (MCKEY_M_ALT, &idx))
         {
             g_string_append (s, key_conv_tab_sorted[idx]->name);
             g_string_append_c (s, '-');
         }
 
-        if ((mod & KEY_M_CTRL) != 0)
+        if ((mod & MCKEY_M_CTRL) != 0)
         {
             // non printeble chars like a CTRL-[A..Z]
             if (k < 32)
                 k += 64;
 
-            if (lookup_keycode (KEY_M_CTRL, &idx))
+            if (lookup_keycode (MCKEY_M_CTRL, &idx))
             {
                 g_string_append (s, key_conv_tab_sorted[idx]->name);
                 g_string_append_c (s, '-');
             }
         }
 
-        if ((mod & KEY_M_SHIFT) != 0)
+        if ((mod & MCKEY_M_SHIFT) != 0)
         {
-            if (lookup_keycode (KEY_M_ALT, &idx))
+            if (lookup_keycode (MCKEY_M_ALT, &idx))
             {
                 if (k < 127)
                     g_string_append_c (s, (gchar) g_ascii_toupper ((gchar) k));
@@ -1730,8 +1743,8 @@ nodelay_try_again:
         tty_nodelay (TRUE);
 
     c = tty_lowlevel_getch ();
-#if (defined(USE_NCURSES) || defined(USE_NCURSESW)) && defined(KEY_RESIZE)
-    if (c == KEY_RESIZE)
+#if (defined(USE_NCURSES) || defined(USE_NCURSESW)) && defined(MCKEY_RESIZE)
+    if (c == MCKEY_RESIZE)
         goto nodelay_try_again;
 #endif
 
@@ -1828,7 +1841,7 @@ nodelay_try_again:
         {
             // Convert escape-digits to F-keys
             if (g_ascii_isdigit (c))
-                c = KEY_F (c - '0');
+                c = MCKEY_F (c - '0');
             else if (c == ' ')
                 c = ESC_CHAR;
             else

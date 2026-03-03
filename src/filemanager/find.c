@@ -1546,13 +1546,13 @@ find_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *data
         return MSG_HANDLED;
 
     case MSG_KEY:
-        if (parm == KEY_F (3) || parm == KEY_F (13))
+        if ((parm & ~MCKEY_M_MASK) == MCKEY_F (3))  // VERIFY
         {
-            gboolean unparsed_view = (parm == KEY_F (13));
+            gboolean unparsed_view = (parm & MCKEY_M_SHIFT);  // VERIFY
 
             return view_edit_currently_selected_file (unparsed_view, FALSE);
         }
-        if (parm == KEY_F (4))
+        if (parm == MCKEY_F (4))
             return view_edit_currently_selected_file (FALSE, TRUE);
         return MSG_NOT_HANDLED;
 

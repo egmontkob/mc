@@ -47,7 +47,7 @@
 #include "lib/global.h"
 
 #include "lib/tty/tty.h"   // COLS
-#include "lib/tty/key.h"   // KEY_M_CTRL
+#include "lib/tty/key.h"   // MCKEY_M_CTRL
 #include "lib/skin.h"      // colors
 #include "lib/mcconfig.h"  // Load/save directories hotlist
 #include "lib/fileloc.h"
@@ -491,11 +491,11 @@ hotlist_handle_key (WDialog *h, int key)
 {
     switch (key)
     {
-    case KEY_M_CTRL | '\n':
+    case MCKEY_M_CTRL | '\n':
         goto l1;
 
     case '\n':
-    case KEY_ENTER:
+//    case MCKEY_ENTER:  // fixme what is this???
         if (hotlist_button_callback (NULL, B_ENTER) != 0)
         {
             h->ret_value = B_ENTER;
@@ -503,19 +503,19 @@ hotlist_handle_key (WDialog *h, int key)
         }
         return MSG_HANDLED;
 
-    case KEY_RIGHT:
+    case MCKEY_RIGHT:
         // enter to the group
         if (hotlist_state.type == LIST_VFSLIST)
             return MSG_NOT_HANDLED;
         return hotlist_button_callback (NULL, B_ENTER_GROUP) == 0 ? MSG_HANDLED : MSG_NOT_HANDLED;
 
-    case KEY_LEFT:
+    case MCKEY_LEFT:
         // leave the group
         if (hotlist_state.type == LIST_VFSLIST)
             return MSG_NOT_HANDLED;
         return hotlist_button_callback (NULL, B_UP_GROUP) == 0 ? MSG_HANDLED : MSG_NOT_HANDLED;
 
-    case KEY_DC:
+    case MCKEY_DEL:
         if (hotlist_state.moving)
             return MSG_NOT_HANDLED;
         hotlist_button_callback (NULL, B_REMOVE);

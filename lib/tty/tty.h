@@ -21,9 +21,9 @@
 
 /*** typedefs(not structures) and defined constants **********************************************/
 
-#define KEY_KP_ADD      4001
-#define KEY_KP_SUBTRACT 4002
-#define KEY_KP_MULTIPLY 4003
+//#define KEY_KP_ADD      4001
+//#define KEY_KP_SUBTRACT 4002
+//#define KEY_KP_MULTIPLY 4003
 
 // In UTF-8 locales it's always the gunichar.
 // In 8-bit locales it's either one of the MC_ACS_* special values for single frame characters,

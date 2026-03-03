@@ -33,7 +33,7 @@
 #include <sys/types.h>
 
 #include "lib/global.h"
-#include "lib/tty/key.h"  // KEY_M_
+#include "lib/tty/key.h"  // fixme is this include needed???
 #include "lib/keybind.h"
 
 /*** global variables ****************************************************************************/

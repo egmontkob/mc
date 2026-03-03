@@ -33,6 +33,7 @@
 
 #include "lib/global.h"
 
+#include "lib/tty/key.h"
 #include "lib/tty/tty.h"
 #include "lib/skin.h"
 #include "lib/vfs/vfs.h"
@@ -262,7 +263,7 @@ chmod_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *dat
         return MSG_NOT_HANDLED;
 
     case MSG_KEY:
-        if (parm == 'T' || parm == 't' || parm == KEY_IC)
+        if (parm == 'T' || parm == 't' || parm == MCKEY_INS)
         {
             int i;
             unsigned long id;
@@ -275,7 +276,7 @@ chmod_callback (Widget *w, Widget *sender, widget_msg_t msg, int parm, void *dat
             if (i < BUTTONS_PERM)
             {
                 chmod_toggle_select (h, i);
-                if (parm == KEY_IC)
+                if (parm == MCKEY_INS)
                     group_select_next_widget (g);
                 return MSG_HANDLED;
             }

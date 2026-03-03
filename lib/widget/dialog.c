@@ -223,7 +223,7 @@ dlg_key_event (WDialog *h, int d_key)
             group_select_next_widget (g);
             return;
         }
-        else if ((d_key & ~(KEY_M_SHIFT | KEY_M_CTRL)) == '\t')
+        else if ((d_key & ~(MCKEY_M_SHIFT | MCKEY_M_CTRL)) == '\t')
         {
             group_select_prev_widget (g);
             return;

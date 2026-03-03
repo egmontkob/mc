@@ -46,7 +46,7 @@
 #include "lib/global.h"
 #include "lib/fileloc.h"  // MC_HINT, MC_FILEPOS_FILE
 #include "lib/tty/tty.h"
-#include "lib/tty/key.h"  // KEY_M_* masks
+#include "lib/tty/key.h"  //// fixme is this include needed??
 #include "lib/skin.h"
 #include "lib/util.h"
 #include "lib/vfs/vfs.h"
