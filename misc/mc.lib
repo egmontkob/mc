@@ -116,6 +116,28 @@ copy=xterm
 
 [terminal:rxvt]
 copy=xterm
+# Shift+F1 / Shift+F2 generate the same as F11 / F12 (\e[23~ / \e[24~).
+# Prefer to interpret them as Shift+F1 / Shift+F2.
+# Actually I have no information whether it's true for old rxvt, but it's
+# definitely the case with rxvt-unicode. Assume it's the same for old rxvt.
+shift-f1=\\e[23~;\\eO2P;\\eO1\;2P;\\e[1\;2P
+shift-f2=\\e[24~;\\eO2Q;\\eO1\;2Q;\\e[1\;2Q
+shift-f11=\\e[23$;\\e[23\;2~
+shift-f12=\\e[24$;\\e[24\;2~
+
+[terminal:rxvt-unicode]
+copy=rxvt
+
+[terminal:rxvt-unicode-256color]
+copy=rxvt
+
+[terminal:putty]
+# Same story as with rxvt, except that Shift+F11 / Shift+F12 generate the same
+# as their shiftless counterpart, so they won't be recognized.
+copy=rxvt
+
+[terminal:putty-256color]
+copy=rxvt
 
 [terminal:xterm-new]
 copy=xterm
