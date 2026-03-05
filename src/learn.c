@@ -280,7 +280,7 @@ init_learn (void)
 
     // find first unshown button
     for (key = key_name_conv_tab, learn_total = 0;
-         key->name != NULL && strcmp (key->name, "kpleft") != 0; key++, learn_total++)
+         key->name != NULL && strcmp (key->name, "kpenter") != 0; key++, learn_total++)
         ;
 
     learnok = 0;

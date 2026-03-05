@@ -122,6 +122,7 @@ static const struct
     { MCKEY_BACKSPACE, "kb" },
     { MCKEY_HOME, "kh" },
     { MCKEY_END, "@7" },
+    { MCKEY_KP_MIDDLE, "K2" },
     { 0, NULL }
 };
 
