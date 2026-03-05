@@ -286,7 +286,12 @@ convert_controls (const char *p)
                 char c;
 
                 c = *p | 0x20;
-                if (c >= 'a' && c <= 'z')
+                if (*p == '?')
+                {
+                    *q++ = 0x7F;
+                    p++;
+                }
+                else if (c >= 'a' && c <= 'z')
                 {
                     *q++ = c - 'a' + 1;
                     p++;
