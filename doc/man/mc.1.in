@@ -499,10 +499,10 @@ move the selection bar to the previous entry in the panel.
 .B down\-key, C\-n
 move the selection bar to the next entry in the panel.
 .TP
-.B home, a1, Alt\-<
+.B home, Alt\-<
 move the selection bar to the first entry in the panel.
 .TP
-.B end, c1, Alt\->
+.B end, Alt\->
 move the selection bar to the last entry in the panel.
 .TP
 .B next\-page, C\-v
@@ -633,10 +633,10 @@ moves one page up.
 .B Next Page, Page Down, C\-v
 moves one page down.
 .TP
-.B Home, A1
+.B Home
 moves to the beginning.
 .TP
-.B End, C1
+.B End
 move to the end.
 .PP
 The help viewer and the file viewer accept the following keys in
@@ -2911,7 +2911,7 @@ Move one page up.
 .B PageDown
 Moves one page down.
 .TP
-.B Home, A1
+.B Home
 Moves to the line beginning.
 .TP
 .B End
@@ -2920,7 +2920,7 @@ Moves to the line end.
 .B C\-Home
 Move to the file beginning.
 .TP
-.B C\-End, C1
+.B C\-End
 Move to the file end.
 .\"NODE "Internal File Viewer"
 .SH "Internal File Viewer"

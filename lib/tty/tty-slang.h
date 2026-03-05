@@ -19,8 +19,7 @@
 #define MCKEY_PGUP      SL_KEY_PPAGE
 #define MCKEY_PGDN      SL_KEY_NPAGE
 #define MCKEY_ENTER     SL_KEY_ENTER  // ?
-#define MCKEY_A1        SL_KEY_A1  // ???
-#define MCKEY_C1        SL_KEY_C1  // ???
+#define MCKEY_KP_MIDDLE SL_KEY_B2
 
 #define COLS           SLtt_Screen_Cols
 #define LINES          SLtt_Screen_Rows

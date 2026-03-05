@@ -45,10 +45,7 @@
 #define MCKEY_END       KEY_END
 #define MCKEY_PGUP      KEY_PPAGE
 #define MCKEY_PGDN      KEY_NPAGE
-
-// wtf are these?
-#define MCKEY_A1 KEY_A1
-#define MCKEY_C1 KEY_C1
+#define MCKEY_KP_MIDDLE KEY_B2
 
 #ifdef KEY_RESIZE
 #define MCKEY_RESIZE KEY_RESIZE
