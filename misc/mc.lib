@@ -59,54 +59,12 @@ copy=console
 copy=linux
 
 [terminal:xterm]
-insert=\\e[2~
-f1=\\e[11~;\\e[OP
-f2=\\e[12~;\\e[OQ
-f3=\\e[13~;\\e[OR
-f4=\\e[14~;\\e[OS
-f5=\\e[15~
-f6=\\e[17~
-f7=\\e[18~
-f8=\\e[19~
-f9=\\e[20~
-f10=\\e[21~
-f11=\\e[23~
-f12=\\e[24~
-shift-f1=\\eO2P;\\eO1\;2P;\\e[1\;2P
-shift-f2=\\eO2Q;\\eO1\;2Q;\\e[1\;2Q
-shift-f3=\\e[25~;\\eO2R;\\eO1\;2R;\\e[1\;2R
-shift-f4=\\e[26~;\\eO2S;\\eO1\;2S;\\e[1\;2S
-shift-f5=\\e[28~;\\e[15\;2~
-shift-f6=\\e[29~;\\e[17\;2~
-shift-f7=\\e[31~;\\e[18\;2~
-shift-f8=\\e[32~;\\e[19\;2~
-shift-f9=\\e[33~;\\e[20\;2~
-shift-f10=\\e[34~;\\e[21\;2~
-shift-f11=\\e[23\;2~
-shift-f12=\\e[24\;2~
-left=\\eOD;\\e[D;\\eOt
-right=\\eOC;\\e[C;\\eOv
-up=\\eOA;\\e[A;\\eOx
-down=\\eOB;\\e[B;\\eOr
-home=\\eOH;\\e[H;\\e[1~;\\e[7~;\\eOw
-end=\\eOF;\\e[F;\\e[4~;\\e[8~;\\eOq
-pgup=\\e[5~;\\eOy
-pgdn=\\e[6~;\\eOs
-insert=\\e[2~;\\eOp
-delete=\\e[3~;\\eOn
-kpmiddle=\\e[E;\\eOE;\\eOu
 kpslash=\\eOo
 kpasterisk=\\eOj
 kpminus=\\eOm
 kpplus=\\eOk
 kpenter=\\eOM
 bs=^?
-
-# Arrows for both keypad modes (application and normal).
-up=\\e[A;\\eOA
-down=\\e[B;\\eOB
-right=\\e[C;\\eOC
-left=\\e[D;\\eOD
 
 [terminal:alacritty]
 copy=xterm
@@ -120,10 +78,32 @@ copy=xterm
 # Prefer to interpret them as Shift+F1 / Shift+F2.
 # Actually I have no information whether it's true for old rxvt, but it's
 # definitely the case with rxvt-unicode. Assume it's the same for old rxvt.
-shift-f1=\\e[23~;\\eO2P;\\eO1\;2P;\\e[1\;2P
-shift-f2=\\e[24~;\\eO2Q;\\eO1\;2Q;\\e[1\;2Q
-shift-f11=\\e[23$;\\e[23\;2~
-shift-f12=\\e[24$;\\e[24\;2~
+# Shift_F1 .. Shift+F10 are defined as kf11 .. kf20 in terminfo, rather than
+# kf13 .. kf22 as with most terminals, so we need to override to fix them.
+shift-f1=\\e[23~
+shift-f2=\\e[24~
+shift-f3=\\e[25~
+shift-f4=\\e[26~
+shift-f5=\\e[28~
+shift-f6=\\e[29~
+shift-f7=\\e[31~
+shift-f8=\\e[32~
+shift-f9=\\e[33~
+shift-f10=\\e[34~
+shift-f11=\\e[23$
+shift-f12=\\e[24$
+ctrl-f1=\\e[11^
+ctrl-f2=\\e[12^
+ctrl-f3=\\e[13^
+ctrl-f4=\\e[14^
+ctrl-f5=\\e[15^
+ctrl-f6=\\e[17^
+ctrl-f7=\\e[18^
+ctrl-f8=\\e[19^
+ctrl-f9=\\e[20^
+ctrl-f10=\\e[21^
+ctrl-f11=\\e[23^
+ctrl-f11=\\e[24^
 
 [terminal:rxvt-unicode]
 copy=rxvt
@@ -200,22 +180,6 @@ shift-f7=\\e[e
 shift-f8=\\e[f
 shift-f9=\\e[g
 shift-f10=\\e[h
-
-[terminal:st]
-shift-right=\\e[1\;2C
-shift-left=\\e[1\;2D
-shift-up=\\e[1\;2A
-shift-down=\\e[1\;2B
-alt-shift-right=\\e[1\;4C
-alt-shift-left=\\e[1\;4D
-alt-shift-up=\\e[1\;4A
-alt-shift-down=\\e[1\;4B
-
-[terminal:st-256color]
-copy=st
-
-[terminal:st-git-256color]
-copy=st
 
 [terminal:xterm-kitty]
 copy=xterm
