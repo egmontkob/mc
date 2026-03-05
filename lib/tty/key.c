@@ -1685,6 +1685,29 @@ tty_keycode_to_keyname (const int keycode)
 }
 
 /* --------------------------------------------------------------------------------------------- */
+
+#ifdef NCURSES_VERSION
+static int
+map_back (int code)
+{
+    if ((code & ~MCKEY_M_MASK) >= MCKEY_F (1) && (code & ~MCKEY_M_MASK) <= MCKEY_F (12)
+        && (code & MCKEY_M_ALT) == 0)
+    {
+        int fnum;
+
+        fnum = (code & ~MCKEY_M_MASK) - MCKEY_F (0);
+        if (code & MCKEY_M_SHIFT)
+            fnum += 12;
+        if (code & MCKEY_M_CTRL)
+            fnum += 24;
+        return KEY_F (fnum);
+    }
+
+    return 0;
+}
+#endif
+
+/* --------------------------------------------------------------------------------------------- */
 /**
  * Return TRUE on success, FALSE on error.
  * An error happens if SEQ is a beginning of an existing longer sequence.
@@ -1697,6 +1720,17 @@ define_sequence (int code, const char *seq, int action)
 
     if (strlen (seq) > SEQ_BUFFER_LEN - 1)
         return FALSE;
+
+#ifdef NCURSES_VERSION
+    if (code > 0)
+    {
+        int ncurses_code;
+
+        ncurses_code = map_back (code);
+        if (ncurses_code > 0)
+            define_key (seq, ncurses_code);
+    }
+#endif
 
     for (base = keys; (base != NULL) && (*seq != '\0');)
         if (*seq == base->ch)
