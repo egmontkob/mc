@@ -362,7 +362,6 @@ learn_save (void)
     int i;
     mc_config_t *keydef_config;
     char *fname;
-    char *section;
     const char *list[2];
     gboolean profile_changed = FALSE;
 
@@ -372,15 +371,13 @@ learn_save (void)
     if (exist_file (fname))
         mc_config_read_file (keydef_config, fname, FALSE, TRUE);
 
-    section = g_strconcat ("terminal:", getenv ("TERM"), (char *) NULL);
-
     for (i = 0; i < learn_total; i++)
         if (learnkeys[i].sequence != NULL)
         {
             list[0] = learnkeys[i].sequence;
             list[1] = NULL;
-            mc_config_set_escape_sequence_list (keydef_config, section, key_name_conv_tab[i].name,
-                                                list, 1);
+            mc_config_set_escape_sequence_list (keydef_config, getenv ("TERM"),
+                                                key_name_conv_tab[i].name, list, 1);
             profile_changed = TRUE;
         }
 
@@ -388,7 +385,6 @@ learn_save (void)
         mc_config_save_file (keydef_config, NULL);
 
     g_free (fname);
-    g_free (section);
     mc_config_deinit (keydef_config);
 }
 
