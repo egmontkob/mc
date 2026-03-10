@@ -24,6 +24,7 @@
 
 #include "lib/global.h"
 #include "lib/strutil.h"
+#include "lib/terminal.h"  // encode_controls(), decode_controls()
 
 #include "lib/mcconfig.h"
 
@@ -153,6 +154,55 @@ mc_config_set_int_list (mc_config_t *mc_config, const gchar *group, const gchar 
 {
     if (mc_config != NULL && group != NULL && param != NULL && value != NULL && length != 0)
         g_key_file_set_integer_list (mc_config->handle, group, param, value, length);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+void
+mc_config_set_list_separator (mc_config_t *mc_config, gchar separator)
+{
+    if (mc_config != NULL)
+        g_key_file_set_list_separator (mc_config->handle, separator);
+}
+
+/* --------------------------------------------------------------------------------------------- */
+
+/*
+ * An interface matching the other mc_config_set_*_list methods.
+ *
+ * Sets space-separated values, each stored according to encode_controls / decode_controls().
+ *
+ * Primarily useful for having escape sequences in easy-to-read format, including \e for the escape
+ * character without having to double-escape it, and without having to escape semicolons.
+ */
+void
+mc_config_set_escape_sequence_list (mc_config_t *mc_config, const gchar *group, const gchar *param,
+                                    const gchar *value[], gsize length)
+{
+    const gchar *separator_str = " ";
+    GString *str;
+    gboolean add_separator = FALSE;
+
+    if (mc_config == NULL || group == NULL || param == NULL || value == NULL || length == 0)
+        return;
+
+    str = g_string_new (NULL);
+
+    for (const gchar **p = value; *p != NULL; p++)
+        if (**p != '\0')
+        {
+            gchar *encoded = encode_controls (*p);
+
+            if (add_separator)
+                g_string_append (str, separator_str);
+            g_string_append (str, encoded);
+            g_free (encoded);
+            add_separator = TRUE;
+        }
+
+    g_key_file_set_value (mc_config->handle, group, param, str->str);
+
+    g_string_free (str, TRUE);
 }
 
 /* --------------------------------------------------------------------------------------------- */

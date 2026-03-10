@@ -110,6 +110,51 @@ END_TEST
 
 /* --------------------------------------------------------------------------------------------- */
 
+START_TEST (test_encode_controls)
+{
+    mctest_assert_str_eq (encode_controls ("\001"), "^A");
+    mctest_assert_str_eq (encode_controls ("\032"), "^Z");
+    mctest_assert_str_eq (encode_controls ("\033"), "\\e");
+    mctest_assert_str_eq (encode_controls ("\034"), "^\\");
+    mctest_assert_str_eq (encode_controls ("\035"), "^]");
+    mctest_assert_str_eq (encode_controls ("\036"), "^^");
+    mctest_assert_str_eq (encode_controls ("\037"), "^_");
+    mctest_assert_str_eq (encode_controls ("\177"), "^?");
+    mctest_assert_str_eq (encode_controls (" "), "\\s");
+    mctest_assert_str_eq (encode_controls ("\\"), "\\\\");
+    mctest_assert_str_eq (encode_controls ("^"), "\\^");
+}
+END_TEST
+
+/* --------------------------------------------------------------------------------------------- */
+
+START_TEST (test_decode_controls)
+{
+    mctest_assert_str_eq (decode_controls ("^A"), "\001");
+    mctest_assert_str_eq (decode_controls ("^Z"), "\032");
+    mctest_assert_str_eq (decode_controls ("^["), "\033");
+    mctest_assert_str_eq (decode_controls ("\\e"), "\033");
+    mctest_assert_str_eq (decode_controls ("\\E"), "\033");
+    mctest_assert_str_eq (decode_controls ("^\\"), "\034");
+    mctest_assert_str_eq (decode_controls ("^]"), "\035");
+    mctest_assert_str_eq (decode_controls ("^^"), "\036");
+    mctest_assert_str_eq (decode_controls ("^_"), "\037");
+    mctest_assert_str_eq (decode_controls ("^?"), "\177");
+    mctest_assert_str_eq (decode_controls ("\\s"), " ");
+    mctest_assert_str_eq (decode_controls ("\\\\"), "\\");
+    mctest_assert_str_eq (decode_controls ("\\^"), "^");
+    mctest_assert_str_eq (decode_controls ("\\^"), "^");
+    mctest_assert_str_eq (decode_controls ("^A^[\\e\\E^\\^^^?"), "\001\033\033\033\034\036\177");
+    mctest_assert_str_eq (decode_controls ("\\\\\\\\\\\\"), "\\\\\\");
+    mctest_assert_str_eq (decode_controls ("^^^^^^"), "\036\036\036");
+    mctest_assert_str_eq (decode_controls ("^^^^^\\^\\\\\\\\\\\\^\\^^^^^"),
+                          "\036\036\034\034\\\\^^\036\036");
+    mctest_assert_str_eq (decode_controls ("trailing^"), "trailing^");
+}
+END_TEST
+
+/* --------------------------------------------------------------------------------------------- */
+
 int
 main (void)
 {
@@ -123,6 +168,8 @@ main (void)
     tcase_add_test (tc_core, test_parse_csi);
     tcase_add_test (tc_core, test_strip_ctrl_codes);
     tcase_add_test (tc_core, test_strip_ctrl_codes2);
+    tcase_add_test (tc_core, test_encode_controls);
+    tcase_add_test (tc_core, test_decode_controls);
     // ***********************************
 
     return mctest_run_all (tc_core);
