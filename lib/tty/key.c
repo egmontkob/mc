@@ -151,7 +151,7 @@ const key_code_name_t key_name_conv_tab[] = {
 
     // Alternative label
     { ESC_CHAR, "esc", N_ ("Escape"), "Esc" },
-    { MCKEY_BACKSPACE, "bs", N_ ("Backspace"), "Backspace" },
+    { MCKEY_BACKSPACE, "backspace", N_ ("Backspace"), "Backspace" },
     { MCKEY_INS, "ins", N_ ("Insert"), "Ins" },
     { MCKEY_DEL, "del", N_ ("Delete"), "Del" },
     { (int) '*', "asterisk", N_ ("Asterisk"), "*" },

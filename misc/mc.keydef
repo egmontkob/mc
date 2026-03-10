@@ -133,7 +133,7 @@ kpasterisk = \eOj
 kpminus    = \eOm
 kpplus     = \eOk
 kpenter    = \eOM
-bs         = ^?
+backspace  = ^?
 
 # Arrows for both keypad modes (application and normal).
 up         = \e[A \eOA
@@ -216,7 +216,7 @@ shift-f7   = \e[e
 shift-f8   = \e[f
 shift-f9   = \e[g
 shift-f10  = \e[h
-bs         = ^H
+backspace  = ^H
 end        = \e[F
 kpplus     = \e[+
 kpminus    = \e[-
