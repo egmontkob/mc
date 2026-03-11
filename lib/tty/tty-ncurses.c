@@ -306,7 +306,7 @@ tty_init (gboolean mouse_enable, gboolean is_xterm)
     tty_enter_ca_mode ();
     tty_raw_mode ();
     noecho ();
-    keypad (stdscr, TRUE);
+    tty_keypad (TRUE);
     nodelay (stdscr, FALSE);
 
     tty_setup_sigwinch (sigwinch_handler);
@@ -439,7 +439,15 @@ tty_flush_input (void)
 void
 tty_keypad (gboolean set)
 {
-    keypad (stdscr, (bool) set);
+    char *keypad_string;
+
+    keypad_string = tty_tigetstr (set ? "smkx" : "rmkx", set ? "ks" : "ke");
+
+    if (keypad_string != NULL)
+    {
+        fputs (keypad_string, stdout);
+        fflush (stdout);
+    }
 }
 
 /* --------------------------------------------------------------------------------------------- */
